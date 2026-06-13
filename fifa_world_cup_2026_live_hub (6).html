@@ -1,0 +1,2654 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIFA World Cup 2026 - Live Hub (Engineered by Rao Mubeen)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        heading: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        fifa: {
+                            gold: '#fbbf24',
+                            goldHover: '#f59e0b',
+                            navy: '#050c1e',
+                            navyLight: '#0d1b3e',
+                            navyDark: '#020617',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.05);
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .nav-active {
+            background: rgba(251, 191, 36, 0.15);
+            border-left: 4px solid #fbbf24;
+            color: #fbbf24;
+            font-weight: 600;
+        }
+        
+        .dark .nav-active {
+            background: rgba(251, 191, 36, 0.1);
+            border-left: 4px solid #fbbf24;
+            color: #fbbf24;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col font-sans transition-colors duration-200">
+
+    <div class="bg-amber-400 dark:bg-amber-500 text-slate-950 px-4 py-2 text-xs font-semibold overflow-hidden whitespace-nowrap relative z-50 shadow-sm">
+        <div class="inline-block animate-marquee uppercase tracking-wider" id="newsTicker">
+            🚨 FIFA World Cup 2026 Official Live Updates • Current Date: June 13, 2026 • USA 4-1 Paraguay (Full Time) • Mexico 2-0 South Africa (Full Time) • Korea Republic 2-1 Czechia (Full Time) • Canada 1-1 Bosnia (Full Time) • Tapmad Streaming Live in Pakistan! 🚨
+        </div>
+        <style>
+            @keyframes marquee {
+                0% { transform: translateX(100%); }
+                100% { transform: translateX(-100%); }
+            }
+            .animate-marquee {
+                display: inline-block;
+                padding-left: 100%;
+                animation: marquee 25s linear infinite;
+            }
+        </style>
+    </div>
+
+    <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 px-4 py-3 shadow-sm">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            
+            <div class="flex items-center gap-3">
+                <button id="mobileMenuBtn" class="lg:hidden text-slate-600 dark:text-slate-300 p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+                    📊
+                </button>
+                <div class="flex items-center gap-2">
+                    <span class="text-3xl">⚽</span>
+                    <div>
+                        <h1 class="text-lg md:text-xl font-bold font-heading text-slate-950 dark:text-white tracking-tight flex items-center gap-1.5">
+                            FIFA WORLD CUP <span class="text-amber-500 font-mono">2026</span>
+                            <span class="bg-emerald-500 text-white text-[9px] px-1.5 py-0.5 rounded font-sans uppercase font-extrabold animate-pulse" id="liveHeaderBadge">STANDBY</span>
+                        </h1>
+                        <p class="text-[10px] text-slate-500 dark:text-slate-400 leading-tight">Pakistan Standard Time (PKT) Coverage</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Premium Search Component -->
+            <div class="relative max-w-md w-full hidden md:block">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">🔍</span>
+                <input type="text" id="globalSearch" onkeyup="handleGlobalSearch(event)" placeholder="Search players, matches, venues, groups..." class="w-full bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl py-1.5 pl-9 pr-4 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-amber-500 transition">
+                <div id="searchSuggestions" class="hidden absolute top-full left-0 right-0 mt-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-2xl z-50 p-2 text-xs divide-y divide-slate-100 dark:divide-slate-800/60 max-h-[350px] overflow-y-auto"></div>
+            </div>
+
+            <!-- Utilities Section -->
+            <div class="flex items-center gap-3">
+                <!-- Clock Badge -->
+                <div class="hidden sm:flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700">
+                    <span class="text-sm">🇵🇰</span>
+                    <span class="text-[11px] font-bold text-slate-600 dark:text-slate-300" id="pktLiveTime">Loading PKT...</span>
+                </div>
+
+                <!-- Notifications -->
+                <div class="relative">
+                    <button onclick="toggleNotifications()" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-850 rounded-xl relative text-slate-600 dark:text-slate-300">
+                        🔔
+                        <span class="absolute top-1.5 right-1.5 bg-red-500 text-white text-[8px] font-bold h-4 w-4 rounded-full flex items-center justify-center animate-bounce" id="notifBadge">1</span>
+                    </button>
+                    <div id="notifDropdown" class="hidden absolute right-0 mt-3 w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl z-50 overflow-hidden">
+                        <div class="p-3 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                            <span class="font-bold text-xs">Notifications Hub</span>
+                            <button onclick="clearNotifications()" class="text-[10px] text-amber-500 hover:underline">Clear all</button>
+                        </div>
+                        <div class="max-h-64 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800" id="notifList">
+                            <div class="p-3 text-[11px] hover:bg-slate-50 dark:hover:bg-slate-850 transition">
+                                <p class="font-bold text-amber-500">🏆 Calendar Standby</p>
+                                <p class="text-slate-600 dark:text-slate-300">Match 4 finished. Current real-time is Saturday Afternoon. Next match starts tonight at 12:00 AM PKT.</p>
+                                <span class="text-[9px] text-slate-400">June 13 Morning</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Light/Dark Toggle -->
+                <button onclick="toggleTheme()" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl text-slate-600 dark:text-slate-300">
+                    <span id="themeIcon">☀️</span>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <div class="bg-slate-100 dark:bg-slate-900/60 border-b border-slate-200 dark:border-slate-800/80 py-5 px-4 text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-amber-500/5 via-transparent to-amber-500/5 pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto relative z-10 flex flex-col items-center justify-center">
+            <div class="inline-flex items-center gap-2 bg-amber-400/10 text-amber-500 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-widest mb-1.5 border border-amber-500/20">
+                🚀 Lead Platform Architect
+            </div>
+            <h2 class="text-2xl md:text-4xl font-extrabold font-heading tracking-tight text-slate-900 dark:text-white flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1">
+                <span>Platform Engineered By</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-600 font-black relative drop-shadow-[0_2px_10px_rgba(245,158,11,0.15)]">
+                    Rao Mubeen
+                </span>
+            </h2>
+            <p class="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 font-semibold tracking-wider mt-1 uppercase">
+                FIFA World Cup 2026 Ultimate Pakistan Standard Time (PKT) Broadcast Companion
+            </p>
+        </div>
+    </div>
+
+    <div class="bg-gradient-to-r from-slate-900 to-indigo-950 border-b border-indigo-900 text-white py-3 px-4 shadow-inner">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+            <div class="flex items-center gap-2">
+                <span class="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="font-bold">Virtual Engine Mode:</span>
+                <span id="engineModeText" class="bg-indigo-900/80 px-2.5 py-1 rounded text-amber-400 border border-indigo-700/50 font-semibold">
+                    Real-Time Mode (Default)
+                </span>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-slate-300">Warp Time:</span>
+                <button onclick="setTimeMode('realtime')" id="btn-mode-real" class="bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-lg transition text-[11px]">
+                    ⏱️ June 13 Real-Time (Upcoming Standby)
+                </button>
+                <button onclick="setTimeMode('swiss')" id="btn-mode-swiss" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition text-[11px] border border-slate-700">
+                    ⚡ Warp to Qatar vs Swiss (Sunday 12:00 AM PKT)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto w-full flex-grow flex flex-col lg:flex-row gap-6 p-4">
+
+        <aside id="sidebar" class="lg:w-64 flex-shrink-0 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm hidden lg:flex flex-col gap-2 relative">
+            <h3 class="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-3 mb-2">Main Menu</h3>
+            
+            <button onclick="switchSection('dashboard')" id="nav-dashboard" class="flex items-center gap-3 w-full text-left px-3 py-2 text-xs rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition nav-active">
+                📊 <span>Tournament Dashboard</span>
+            </button>
+            <button onclick="switchSection('liveCenter')" id="nav-liveCenter" class="flex items-center justify-between w-full text-left px-3 py-2 text-xs rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                <span class="flex items-center gap-3"><span id="liveStatusEmoji">⚪</span> <span>Live Match Center</span></span>
+                <span id="liveBadgePing" class="h-2 w-2 rounded-full bg-slate-400"></span>
+            </button>
+            <button onclick="switchSection('schedule')" id="nav-schedule" class="flex items-center gap-3 w-full text-left px-3 py-2 text-xs rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                📅 <span>Match Schedule & Converter</span>
+            </button>
+            <button onclick="switchSection('groups')" id="nav-groups" class="flex items-center gap-3 w-full text-left px-3 py-2 text-xs rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                🏆 <span>Group Stage Tables</span>
+            </button>
+            <button onclick="switchSection('bracket')" id="nav-bracket" class="flex items-center gap-3 w-full text-left px-3 py-2 text-xs rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                🌳 <span>Knockout Bracket</span>
+            </button>
+            <button onclick="switchSection('teams')" id="nav-teams" class="flex items-center gap-3 w-full text-left px-3 py-2 text-xs rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                🛡️ <span>Team Explorer & Head-to-Head</span>
+            </button>
+            <button onclick="switchSection('stadiums')" id="nav-stadiums" class="flex items-center gap-3 w-full text-left px-3 py-2 text-xs rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                🏟️ <span>Host Stadium Directory</span>
+            </button>
+            <button onclick="switchSection('stats')" id="nav-stats" class="flex items-center gap-3 w-full text-left px-3 py-2 text-xs rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                🌟 <span>Player Leaderboards</span>
+            </button>
+            <button onclick="switchSection('analytics')" id="nav-analytics" class="flex items-center gap-3 w-full text-left px-3 py-2 text-xs rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                📈 <span>Tournament Analytics</span>
+            </button>
+            <button onclick="switchSection('streams')" id="nav-streams" class="flex items-center gap-3 w-full text-left px-3 py-2 text-xs rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                📡 <span>Broadcast & Stream Guide</span>
+            </button>
+
+            <!-- Predictor Section -->
+            <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-855">
+                <h4 class="text-[10px] font-bold uppercase text-slate-400 px-3 mb-2">My Playzone</h4>
+                <button onclick="switchSection('predictor')" id="nav-predictor" class="flex items-center gap-3 w-full text-left px-3 py-2 text-xs rounded-xl text-amber-500 hover:bg-amber-400/10 transition">
+                    🔮 <span>H2H Match Predictor</span>
+                </button>
+            </div>
+
+            <div class="mt-auto pt-6 text-[10px] text-slate-400 px-3">
+                <p>FIFA World Cup 2026 Live Hub</p>
+                <p class="mt-1">Active Time Zone: PKT (+5)</p>
+            </div>
+        </aside>
+
+        <!-- Main Content Viewport -->
+        <main class="flex-grow flex flex-col gap-6 w-full">
+
+            <!-- SECTION 1: TOURNAMENT DASHBOARD -->
+            <section id="section-dashboard" class="section-container flex flex-col gap-6">
+                <!-- Hero Section Carousel Card -->
+                <div class="bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 text-white border border-slate-800 rounded-3xl p-6 relative overflow-hidden shadow-xl">
+                    <div class="absolute inset-0 opacity-10 pointer-events-none">
+                        <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="10%" y1="0" x2="10%" y2="100%" stroke="white" stroke-width="1"/>
+                            <line x1="30%" y1="0" x2="30%" y2="100%" stroke="white" stroke-width="1"/>
+                            <line x1="50%" y1="0" x2="50%" y2="100%" stroke="white" stroke-width="1"/>
+                            <line x1="70%" y1="0" x2="70%" y2="100%" stroke="white" stroke-width="1"/>
+                            <circle cx="50%" cy="50%" r="100" fill="none" stroke="white" stroke-width="1"/>
+                        </svg>
+                    </div>
+
+                    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div class="space-y-3 max-w-lg">
+                            <span class="bg-amber-500 text-slate-950 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider inline-block shadow">TOURNAMENT ACTIVE</span>
+                            <h2 class="text-3xl md:text-4xl font-extrabold font-heading tracking-tight leading-tight">
+                                North America Hosts the Greatest <span class="text-amber-400">Show on Earth!</span>
+                            </h2>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                Experience 48 teams competing across USA, Canada, and Mexico. Keep track of live events, local kickoff schedules, standings, and broadcaster links translated directly to Pakistani Standard Time (PKT).
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <button onclick="switchSection('liveCenter')" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs py-2 px-5 rounded-xl transition shadow">Watch Live Match Center</button>
+                                <button onclick="switchSection('schedule')" class="bg-slate-800/80 hover:bg-slate-700 text-white font-medium text-xs py-2 px-4 rounded-xl transition border border-slate-700">Check Schedule</button>
+                            </div>
+                        </div>
+
+                        <!-- Live Countdown -->
+                        <div class="bg-slate-900/80 border border-slate-700/50 rounded-2xl p-4 w-full md:w-72 shadow-2xl backdrop-blur-md">
+                            <div class="text-center">
+                                <span class="text-[10px] text-amber-400 uppercase tracking-widest font-extrabold block mb-1">Next Kickoff Broadcast</span>
+                                <div class="flex items-center justify-center gap-3 my-2">
+                                    <div class="text-center">
+                                        <span class="text-3xl block">🇶🇦</span>
+                                        <span class="text-[10px] font-bold mt-1 block">Qatar</span>
+                                    </div>
+                                    <span class="text-xs font-heading font-extrabold text-amber-400 px-2 py-1 rounded bg-slate-800 border border-slate-700">VS</span>
+                                    <div class="text-center">
+                                        <span class="text-3xl block">🇨🇭</span>
+                                        <span class="text-[10px] font-bold mt-1 block">Switzerland</span>
+                                    </div>
+                                </div>
+                                <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800 text-center">
+                                    <p class="text-[10px] text-slate-400" id="heroTimerLabel">Countdown to Live Broadcast</p>
+                                    <p class="text-lg font-black font-heading text-amber-300 tracking-wider" id="dashCountdownTimer">--h --m --s</p>
+                                    <p class="text-[9px] text-slate-500 font-medium">Tonight, Sunday June 14 @ 12:00 AM Midnight PKT</p>
+                                </div>
+                                <div class="text-[10px] text-slate-400 mt-2 flex items-center justify-center gap-1" id="heroSimulationStatus">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-slate-400"></span> Standby mode
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Overview Counters Grid Cards -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl shadow-sm flex items-center justify-between hover:border-amber-500/30 transition duration-200">
+                        <div>
+                            <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Total Teams</span>
+                            <p class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">48</p>
+                        </div>
+                        <span class="text-2xl bg-slate-100 dark:bg-slate-800 p-2.5 rounded-xl">🛡️</span>
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl shadow-sm flex items-center justify-between hover:border-amber-500/30 transition duration-200">
+                        <div>
+                            <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Total Matches</span>
+                            <p class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">104</p>
+                        </div>
+                        <span class="text-2xl bg-slate-100 dark:bg-slate-800 p-2.5 rounded-xl">📅</span>
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl shadow-sm flex items-center justify-between hover:border-amber-500/30 transition duration-200">
+                        <div>
+                            <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Completed</span>
+                            <p class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1" id="dashCompletedMatchesCount">4</p>
+                        </div>
+                        <span class="text-2xl bg-slate-100 dark:bg-slate-800 p-2.5 rounded-xl">🏁</span>
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl shadow-sm flex items-center justify-between hover:border-amber-500/30 transition duration-200">
+                        <div>
+                            <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Goals Scored</span>
+                            <p class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1" id="dashTotalGoals">12</p>
+                        </div>
+                        <span class="text-2xl bg-slate-100 dark:bg-slate-800 p-2.5 rounded-xl">⚽</span>
+                    </div>
+                </div>
+
+                <!-- Main Grid: Mini Match Feed & Quick Standings -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    
+                    <!-- Left: Match Previews (8 cols) -->
+                    <div class="lg:col-span-8 flex flex-col gap-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-sm font-bold font-heading text-slate-900 dark:text-white flex items-center gap-1.5">
+                                ⚽ Simulated / Showcase Broadcasts
+                            </h3>
+                            <button onclick="switchSection('liveCenter')" class="text-xs text-amber-500 font-semibold hover:underline">Match Center ➔</button>
+                        </div>
+
+                        <!-- Mini Live Cards Container -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="dashboardLiveMatches">
+                            <!-- Populated dynamically via javascript -->
+                        </div>
+
+                        <div class="mt-4 flex items-center justify-between">
+                            <h3 class="text-sm font-bold font-heading text-slate-950 dark:text-white flex items-center gap-1.5">
+                                📅 Next 2 Upcoming Fixtures
+                            </h3>
+                            <button onclick="switchSection('schedule')" class="text-xs text-amber-500 font-semibold hover:underline">Full Schedule ➔</button>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="dashboardUpcomingMatches">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Right: Quick Time Converter Tool (4 cols) -->
+                    <div class="lg:col-span-4 flex flex-col gap-6">
+                        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-2xl shadow-sm">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-amber-500 mb-3 flex items-center gap-1.5">
+                                ⏱️ Instant Timezone Converter
+                            </h4>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 mb-4">
+                                Translate United States stadium time slots directly into Pakistan Standard Time (PKT).
+                            </p>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Select USA Host Timezone</label>
+                                    <select id="tzConvertOffset" class="w-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-2 text-xs text-slate-900 dark:text-white">
+                                        <option value="-4">Eastern Time (EST - New York / Miami / Toronto) [+9 Hrs PKT]</option>
+                                        <option value="-5">Central Time (CST - Dallas / Chicago / Mexico) [+10 Hrs PKT]</option>
+                                        <option value="-7">Pacific Time (PST - Los Angeles / Seattle / Vancouver) [+12 Hrs PKT]</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">USA Match Local Kickoff Time</label>
+                                    <input type="time" id="tzConvertTime" value="18:00" class="w-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-2 text-xs text-slate-900 dark:text-white">
+                                </div>
+                                <button onclick="calculateManualTz()" class="w-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs py-2 rounded-xl transition mt-1 shadow-sm">Convert to PKT</button>
+                                
+                                <div class="bg-slate-50 dark:bg-slate-950 p-3 rounded-xl border border-slate-200 dark:border-slate-800 text-center mt-3" id="tzConvertResult">
+                                    <span class="text-[10px] text-slate-400 uppercase font-semibold">Pakistani Standard Time Result</span>
+                                    <p class="text-lg font-extrabold text-slate-900 dark:text-white heading-font mt-1">03:00 AM <span class="text-xs font-medium text-amber-500">(Next Calendar Day)</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mini Standings references -->
+                        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-2xl shadow-sm">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-amber-500 mb-3 flex items-center gap-1.5">
+                                🏆 Group A (Host Group) Standings
+                            </h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs">
+                                    <thead>
+                                        <tr class="text-[10px] text-slate-400 uppercase font-bold border-b border-slate-100 dark:border-slate-855">
+                                            <th class="py-1">Pos</th>
+                                            <th class="py-1">Team</th>
+                                            <th class="py-1 text-center">Pts</th>
+                                            <th class="py-1 text-center">GD</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800" id="dashGroupStandings">
+                                        <!-- Standing loads via js -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button onclick="switchSection('groups')" class="w-full text-center text-xs text-amber-500 hover:underline mt-4 font-semibold block">View All Group Standings ➔</button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- SECTION 2: LIVE MATCH CENTER -->
+            <section id="section-liveCenter" class="section-container hidden flex-col gap-6">
+                <!-- Live / Standby Broadcast Header -->
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm">
+                    <div>
+                        <h2 class="text-2xl font-extrabold font-heading text-slate-950 dark:text-white flex items-center gap-2">
+                            🔴 Live Match Center
+                        </h2>
+                        <p class="text-xs text-slate-500 dark:text-slate-400" id="liveCenterStatusDesc">
+                            Calculating current tournament coverage based on Pakistan Standard Time (PKT).
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="h-2 w-2 rounded-full bg-slate-400 animate-pulse" id="liveCenterIndicatorDot"></span>
+                        <span class="text-xs font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-3 py-1 rounded-xl" id="liveCenterTimerText">Standby Mode</span>
+                    </div>
+                </div>
+
+                <!-- STANDBY COVERAGE SCREEN (Shown when there is no active live match) -->
+                <div id="liveStandbyScreen" class="bg-gradient-to-b from-slate-900 via-slate-950 to-indigo-950 border border-slate-800 rounded-3xl p-8 text-center text-white space-y-6 shadow-xl py-12">
+                    <div class="max-w-md mx-auto space-y-4">
+                        <div class="inline-flex items-center justify-center p-4 bg-indigo-900/40 rounded-full border border-indigo-700/50 shadow-md">
+                            <span class="text-4xl">📡</span>
+                        </div>
+                        <h3 class="text-xl font-bold font-heading">No Live Match Currently On Air</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            There is currently no official live fixture in progress at this time on <span class="text-amber-400 font-bold">June 13, 2026</span>. The morning fixtures have completed.
+                        </p>
+                        
+                        <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl space-y-3">
+                            <span class="text-[10px] uppercase font-bold text-amber-400 block tracking-wider">Next Live Broadcast</span>
+                            <div class="flex items-center justify-between px-6 py-2">
+                                <span class="text-3xl" title="Qatar">🇶🇦</span>
+                                <span class="text-xs font-bold text-slate-200">Qatar vs Switzerland</span>
+                                <span class="text-3xl" title="Switzerland">🇨🇭</span>
+                            </div>
+                            <div class="border-t border-slate-800/80 pt-2 text-center">
+                                <span class="text-[10px] text-slate-400 block mb-1">Starts In</span>
+                                <span class="text-xl font-bold text-amber-300 tracking-widest font-heading" id="standbyCountdown">07h 26m 48s</span>
+                                <p class="text-[9px] text-slate-500 mt-1">PKT Kickoff: Sunday June 14, 12:00 AM Midnight</p>
+                            </div>
+                        </div>
+
+                        <!-- Demo sandbox toggles -->
+                        <div class="pt-4 border-t border-slate-800/60 space-y-3">
+                            <span class="text-[10px] text-indigo-300 font-bold uppercase block tracking-widest">🧪 Sandbox Simulator Sandbox</span>
+                            <p class="text-[11px] text-slate-400 leading-relaxed">
+                                Want to preview the simulation framework and events engine right now? Launch the demo sandbox mode.
+                            </p>
+                            <button onclick="launchDemoSandbox()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs py-2.5 px-6 rounded-xl transition shadow-md w-full inline-block">
+                                Launch Qatar vs Switzerland Preview Simulator
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LIVE MATCH SCREEN (Shown during live matches or sandbox mode) -->
+                <div id="liveActiveScreen" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    
+                    <div class="lg:col-span-8 flex flex-col gap-6">
+                        <!-- Scoreboard card -->
+                        <div class="bg-gradient-to-b from-slate-900 to-blue-950 text-white border border-slate-800 rounded-3xl p-6 relative shadow-lg">
+                            <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-6">
+                                <span class="bg-amber-500 text-slate-950 text-[9px] font-extrabold px-2.5 py-0.5 rounded uppercase tracking-wider animate-pulse flex items-center gap-1" id="liveBadgeLabel">
+                                    <span>●</span> LIVE MATCH PREVIEW
+                                </span>
+                                <span class="text-xs font-bold text-amber-400" id="liveMatchNo">Match 5 • Group B</span>
+                                <span class="text-xs text-slate-400" id="liveMatchVenue">San Francisco Bay Area Stadium</span>
+                            </div>
+
+                            <!-- Score and Flags row -->
+                            <div class="flex items-center justify-between px-4">
+                                <div class="text-center w-1/3 text-ellipsis overflow-hidden whitespace-nowrap">
+                                    <span class="text-6xl block transform hover:scale-110 transition cursor-default" id="liveTeam1Flag">🇶🇦</span>
+                                    <h3 class="text-lg font-extrabold mt-2 text-white text-ellipsis overflow-hidden" id="liveTeam1Name">Qatar</h3>
+                                    <span class="text-[10px] text-slate-400 uppercase">AFC</span>
+                                </div>
+
+                                <div class="text-center w-1/3">
+                                    <div class="inline-block bg-slate-900/90 border border-slate-700/60 px-4 py-2 rounded-2xl">
+                                        <span class="text-xs font-bold text-emerald-400 tracking-widest block mb-1 uppercase" id="liveMatchTime">18'</span>
+                                        <div class="flex items-center justify-center gap-3">
+                                            <span class="text-4xl font-black font-heading text-white" id="liveTeam1Score">0</span>
+                                            <span class="text-slate-500 text-xl font-bold">:</span>
+                                            <span class="text-4xl font-black font-heading text-white" id="liveTeam2Score">0</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-[9px] text-slate-400 mt-2" id="liveMatchKickoffDesc">PKT Kickoff: Tonight, 12:00 AM Midnight</p>
+                                </div>
+
+                                <div class="text-center w-1/3 text-ellipsis overflow-hidden whitespace-nowrap">
+                                    <span class="text-6xl block transform hover:scale-110 transition cursor-default" id="liveTeam2Flag">🇨🇭</span>
+                                    <h3 class="text-lg font-extrabold mt-2 text-white text-ellipsis overflow-hidden" id="liveTeam2Name">Switzerland</h3>
+                                    <span class="text-[10px] text-slate-400 uppercase">UEFA</span>
+                                </div>
+                            </div>
+
+                            <!-- Exit Sandbox Banner -->
+                            <div id="sandboxExitBanner" class="mt-6 pt-4 border-t border-slate-800 text-center hidden">
+                                <button onclick="exitDemoSandbox()" class="text-xs bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 px-4 py-1.5 rounded-xl font-bold transition">
+                                    ⏹️ Close Preview Simulator Sandbox
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Match Statistics Grid Comparisons -->
+                        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm">
+                            <h3 class="text-sm font-bold font-heading mb-6 text-slate-950 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-3">⚽ Match Event Statistics</h3>
+                            
+                            <div class="space-y-4">
+                                <!-- Possession -->
+                                <div class="space-y-1.5">
+                                    <div class="flex justify-between text-xs font-semibold">
+                                        <span>Ball Possession %</span>
+                                        <span class="text-amber-500" id="liveStatPoss1">46%</span>
+                                        <span class="text-blue-400" id="liveStatPoss2">54%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden flex">
+                                        <div class="bg-amber-400 h-full" id="liveStatPossBar" style="width: 46%"></div>
+                                        <div class="bg-blue-400 h-full flex-grow"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Grid Statistics values -->
+                                <div class="grid grid-cols-3 gap-4 text-center border-t border-slate-100 dark:border-slate-800 pt-4">
+                                    <div class="space-y-1">
+                                        <span class="text-xs text-slate-400 uppercase font-bold tracking-wider">Shots</span>
+                                        <div class="flex justify-center items-center gap-3">
+                                            <span class="font-bold text-slate-950 dark:text-white" id="liveStatShots1">3</span>
+                                            <span class="text-[10px] text-slate-400">vs</span>
+                                            <span class="font-bold text-slate-950 dark:text-white" id="liveStatShots2">5</span>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <span class="text-xs text-slate-400 uppercase font-bold tracking-wider">Shots on Target</span>
+                                        <div class="flex justify-center items-center gap-3">
+                                            <span class="font-bold text-slate-950 dark:text-white" id="liveStatTarget1">1</span>
+                                            <span class="text-[10px] text-slate-400">vs</span>
+                                            <span class="font-bold text-slate-950 dark:text-white" id="liveStatTarget2">2</span>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <span class="text-xs text-slate-400 uppercase font-bold tracking-wider">Corners</span>
+                                        <div class="flex justify-center items-center gap-3">
+                                            <span class="font-bold text-slate-950 dark:text-white" id="liveStatCorners1">1</span>
+                                            <span class="text-[10px] text-slate-400">vs</span>
+                                            <span class="font-bold text-slate-950 dark:text-white" id="liveStatCorners2">2</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Cards & Fouls Row -->
+                                <div class="grid grid-cols-3 gap-4 text-center border-t border-slate-100 dark:border-slate-800 pt-4">
+                                    <div class="space-y-1">
+                                        <span class="text-xs text-slate-400 uppercase font-bold tracking-wider">Fouls</span>
+                                        <div class="flex justify-center items-center gap-3">
+                                            <span class="font-bold text-slate-950 dark:text-white" id="liveStatFouls1">3</span>
+                                            <span class="text-[10px] text-slate-400">vs</span>
+                                            <span class="font-bold text-slate-950 dark:text-white" id="liveStatFouls2">4</span>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <span class="text-xs text-slate-400 uppercase font-bold tracking-wider">Yellow Cards</span>
+                                        <div class="flex justify-center items-center gap-3">
+                                            <span class="bg-amber-400/20 text-amber-500 text-xs px-2 py-0.5 rounded font-bold" id="liveStatYel1">0</span>
+                                            <span class="text-[10px] text-slate-400">vs</span>
+                                            <span class="bg-amber-400/20 text-amber-500 text-xs px-2 py-0.5 rounded font-bold" id="liveStatYel2">1</span>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <span class="text-xs text-slate-400 uppercase font-bold tracking-wider">Red Cards</span>
+                                        <div class="flex justify-center items-center gap-3">
+                                            <span class="bg-red-500/20 text-red-500 text-xs px-2 py-0.5 rounded font-bold" id="liveStatRed1">0</span>
+                                            <span class="text-[10px] text-slate-400">vs</span>
+                                            <span class="bg-red-500/20 text-red-500 text-xs px-2 py-0.5 rounded font-bold" id="liveStatRed2">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Live Commentaries Feed (4 cols) -->
+                    <div class="lg:col-span-4 flex flex-col gap-4">
+                        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm flex flex-col h-full max-h-[500px]">
+                            <h3 class="text-sm font-bold font-heading mb-4 text-slate-950 dark:text-white flex items-center gap-2">
+                                💬 Live Match Commentary Feed
+                            </h3>
+                            <div class="overflow-y-auto space-y-3 flex-grow pr-1" id="liveCommentaryContainer">
+                                <div class="p-3 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-100 dark:border-slate-800 text-xs">
+                                    <span class="font-bold text-slate-400 font-mono">18'</span>
+                                    <p class="mt-1 text-slate-700 dark:text-slate-300">Granit Xhaka orchestrates midfield flow, attempting a brilliant overhead ball for Embolo, cleared well by Qatari defense.</p>
+                                </div>
+                                <div class="p-3 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-100 dark:border-slate-800 text-xs">
+                                    <span class="font-bold text-slate-400 font-mono">10'</span>
+                                    <p class="mt-1 text-slate-700 dark:text-slate-300">First yellow card of the game handed to Silvan Widmer for a trailing challenge near the wings.</p>
+                                </div>
+                                <div class="p-3 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-100 dark:border-slate-800 text-xs">
+                                    <span class="font-bold text-slate-400 font-mono">1'</span>
+                                    <p class="mt-1 text-slate-700 dark:text-slate-300">🏁 Kickoff! The match is underway under clear skies in Santa Clara.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- SECTION 3: MATCH SCHEDULE & CONVERTER -->
+            <section id="section-schedule" class="section-container hidden flex-col gap-6">
+                <!-- Search and Filters Panel -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm space-y-4">
+                    <div class="flex flex-col md:flex-row gap-3 items-center justify-between">
+                        <div>
+                            <h2 class="text-xl font-bold font-heading text-slate-950 dark:text-white">📅 Match Fixture Schedule</h2>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Explore complete schedules with dual USA local venue times and converted Pakistani Times (PKT) for all matches 1-104.</p>
+                        </div>
+                        
+                        <div class="relative w-full md:w-64">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">🔍</span>
+                            <input type="text" id="scheduleSearch" onkeyup="filterSchedule()" placeholder="Search team names or cities..." class="w-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl py-2 pl-9 pr-4 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-amber-500 transition">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-100 dark:border-slate-855">
+                        <button onclick="filterScheduleByStage('all')" id="btn-sched-all" class="sched-filter-btn px-3 py-1.5 text-xs font-bold rounded-xl transition bg-amber-400 text-slate-950">All Stages</button>
+                        <button onclick="filterScheduleByStage('group')" id="btn-sched-group" class="sched-filter-btn px-3 py-1.5 text-xs font-bold rounded-xl transition bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">Group Stage (1-72)</button>
+                        <button onclick="filterScheduleByStage('roundof32')" id="btn-sched-roundof32" class="sched-filter-btn px-3 py-1.5 text-xs font-bold rounded-xl transition bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">Round of 32 (73-88)</button>
+                        <button onclick="filterScheduleByStage('roundof16')" id="btn-sched-roundof16" class="sched-filter-btn px-3 py-1.5 text-xs font-bold rounded-xl transition bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">Round of 16 (89-96)</button>
+                        <button onclick="filterScheduleByStage('quarterfinals')" id="btn-sched-quarterfinals" class="sched-filter-btn px-3 py-1.5 text-xs font-bold rounded-xl transition bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">Quarters & Semis (97-102)</button>
+                        <button onclick="filterScheduleByStage('final')" id="btn-sched-final" class="sched-filter-btn px-3 py-1.5 text-xs font-bold rounded-xl transition bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">Final (103-104)</button>
+                    </div>
+                </div>
+
+                <!-- Matches Output Table Grid -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm">
+                    <div class="overflow-x-auto max-h-[600px] overflow-y-auto">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead class="sticky top-0 bg-slate-50 dark:bg-slate-900 z-10 border-b border-slate-200 dark:border-slate-855">
+                                <tr class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">
+                                    <th class="p-4">Match No / Stage</th>
+                                    <th class="p-4">Teams</th>
+                                    <th class="p-4">US Local Venue Time</th>
+                                    <th class="p-4">Pakistani Broadcast Time (PKT)</th>
+                                    <th class="p-4">Venue Stadium / City</th>
+                                    <th class="p-4 text-center">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 dark:divide-slate-800" id="scheduleTableBody">
+                                <!-- Populated dynamically by javascript loop -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: GROUP STANDINGS -->
+            <section id="section-groups" class="section-container hidden flex-col gap-6">
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm">
+                    <h2 class="text-xl font-bold font-heading text-slate-950 dark:text-white">🏆 Complete 48-Team Group Standings</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Explore all 12 groups (A to L). First and second place from each group plus the 8 best third-place teams qualify for the historic Round of 32.</p>
+                </div>
+
+                <!-- Groups Grid A-L -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="groupsStandingsContainer">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </section>
+
+            <!-- SECTION 5: KNOCKOUT BRACKET -->
+            <section id="section-bracket" class="section-container hidden flex-col gap-6">
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm">
+                    <h2 class="text-xl font-bold font-heading text-slate-950 dark:text-white">🌳 2026 Interactive Bracket Structure</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Track the progression from the Round of 32 all the way to the Finals at MetLife Stadium, New York on July 19, 2026.</p>
+                </div>
+
+                <div class="overflow-x-auto pb-4">
+                    <div class="min-w-[1000px] grid grid-cols-5 gap-4 py-4 px-2">
+                        <!-- R32 -->
+                        <div class="space-y-6">
+                            <h4 class="text-center font-bold text-[10px] uppercase text-slate-400 border-b border-slate-200 dark:border-slate-800 pb-2">Round of 32</h4>
+                            <div class="space-y-4">
+                                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3 rounded-xl space-y-2 text-[10px] shadow-sm">
+                                    <div class="flex justify-between font-bold"><span>🇲🇽 Mexico (1A)</span> <span class="text-amber-500">-</span></div>
+                                    <div class="flex justify-between font-semibold text-slate-400"><span>🇨🇭 Switzerland (3C)</span> <span>-</span></div>
+                                    <div class="text-[9px] text-slate-400 border-t border-slate-100 dark:border-slate-800/40 pt-1.5 text-center">PKT: June 28 • New York</div>
+                                </div>
+                                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3 rounded-xl space-y-2 text-[10px] shadow-sm">
+                                    <div class="flex justify-between font-bold"><span>🇧🇷 Brazil (1C)</span> <span class="text-amber-500">-</span></div>
+                                    <div class="flex justify-between font-semibold text-slate-400"><span>🇰🇷 South Korea (2B)</span> <span>-</span></div>
+                                    <div class="text-[9px] text-slate-400 border-t border-slate-100 dark:border-slate-800/40 pt-1.5 text-center">PKT: June 29 • Los Angeles</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- R16 -->
+                        <div class="space-y-6 flex flex-col justify-around">
+                            <h4 class="text-center font-bold text-[10px] uppercase text-slate-400 border-b border-slate-200 dark:border-slate-800 pb-2">Round of 16</h4>
+                            <div class="space-y-4">
+                                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3 rounded-xl space-y-2 text-[10px] shadow-sm">
+                                    <div class="text-slate-400 italic">Winner Match 81</div>
+                                    <div class="text-slate-400 italic">Winner Match 82</div>
+                                    <div class="text-[9px] text-slate-400 border-t border-slate-100 dark:border-slate-800/40 pt-1.5 text-center">PKT: July 4 • Dallas</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- QF -->
+                        <div class="space-y-6 flex flex-col justify-around">
+                            <h4 class="text-center font-bold text-[10px] uppercase text-slate-400 border-b border-slate-200 dark:border-slate-800 pb-2">Quarter Finals</h4>
+                            <div class="space-y-4">
+                                <div class="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 border-2 border-dashed p-3 rounded-xl text-center text-[10px]">
+                                    <span class="text-slate-400">Quarter Finalist Node</span>
+                                    <div class="text-[9px] text-slate-400 mt-1">PKT: July 10 • Boston</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SF -->
+                        <div class="space-y-6 flex flex-col justify-around">
+                            <h4 class="text-center font-bold text-[10px] uppercase text-slate-400 border-b border-slate-200 dark:border-slate-800 pb-2">Semi Finals</h4>
+                            <div class="space-y-4">
+                                <div class="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 border-2 border-dashed p-3 rounded-xl text-center text-[10px]">
+                                    <span class="text-slate-400">Semi Finalist Node</span>
+                                    <div class="text-[9px] text-slate-400 mt-1">PKT: July 15 • Atlanta</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Final -->
+                        <div class="space-y-6 flex flex-col justify-around">
+                            <h4 class="text-center font-bold text-[10px] uppercase text-amber-500 border-b border-amber-500 pb-2">🏆 WORLD CUP FINAL</h4>
+                            <div class="bg-gradient-to-b from-slate-900 to-slate-950 text-white border-2 border-amber-400 p-4 rounded-2xl text-center space-y-3 shadow-xl">
+                                <span class="text-xl">🌟</span>
+                                <div class="font-extrabold text-[11px] uppercase tracking-wider text-amber-400">July 19, 2026</div>
+                                <p class="text-[10px] text-slate-300">MetLife Stadium, East Rutherford, NJ</p>
+                                <span class="bg-amber-400 text-slate-950 font-bold text-[9px] px-2 py-0.5 rounded uppercase">FIFA Champion</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 6: TEAM EXPLORER -->
+            <section id="section-teams" class="section-container hidden flex-col gap-6">
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm">
+                    <h2 class="text-xl font-bold font-heading text-slate-950 dark:text-white">🛡️ Team Explorer & Head-to-Head Comparison</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Select any two qualified national associations below to compare their competitive ratings, rankings, and historical rosters side-by-side.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-100 dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Select Association A</label>
+                        <select id="h2hTeam1" onchange="runH2HComparison()" class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-3 text-sm text-slate-900 dark:text-white focus:ring-1 focus:ring-amber-500">
+                            <option value="Mexico">🇲🇽 Mexico (Rank 15)</option>
+                            <option value="USA" selected>🇺🇸 USA (Rank 11)</option>
+                            <option value="Argentina">🇦🇷 Argentina (Rank 1)</option>
+                            <option value="France">🇫🇷 France (Rank 2)</option>
+                            <option value="Germany">🇩🇪 Germany (Rank 16)</option>
+                            <option value="Spain">🇪🇸 Spain (Rank 3)</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Select Association B</label>
+                        <select id="h2hTeam2" onchange="runH2HComparison()" class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-3 text-sm text-slate-900 dark:text-white focus:ring-1 focus:ring-amber-500">
+                            <option value="Mexico">🇲🇽 Mexico (Rank 15)</option>
+                            <option value="USA">🇺🇸 USA (Rank 11)</option>
+                            <option value="Argentina">🇦🇷 Argentina (Rank 1)</option>
+                            <option value="France">🇫🇷 France (Rank 2)</option>
+                            <option value="Germany">🇩🇪 Germany (Rank 16)</option>
+                            <option value="Spain" selected>🇪🇸 Spain (Rank 3)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="h2hResultsGrid">
+                    <!-- Populated dynamically through js compare functions -->
+                </div>
+            </section>
+
+            <!-- SECTION 7: STADIUM DIRECTORY -->
+            <section id="section-stadiums" class="section-container hidden flex-col gap-6">
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm">
+                    <h2 class="text-xl font-bold font-heading text-slate-950 dark:text-white">🏟️ 16 Host Stadium Directories</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Explore stadiums hosting the world's matches across USA, Canada, and Mexico.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="stadiumsGrid">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </section>
+
+            <!-- SECTION 8: PLAYER LEADERBOARDS -->
+            <section id="section-stats" class="section-container hidden flex-col gap-6">
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm">
+                    <h2 class="text-xl font-bold font-heading text-slate-950 dark:text-white">🌟 Tournament Player Leaderboards</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Monitor individual candidate ratings, top scorers, assists, cards, and clean sheets updated with actual match statistics.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Golden Boot Top Scorers -->
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm">
+                        <h3 class="text-sm font-bold font-heading text-slate-950 dark:text-white mb-4 border-b border-slate-100 dark:border-slate-855 pb-2 flex items-center gap-1.5">
+                            👟 Golden Boot (Top Scorers - Top 5)
+                        </h3>
+                        <div class="space-y-2.5" id="statsScorers">
+                            <!-- Populated dynamic -->
+                        </div>
+                    </div>
+
+                    <!-- Top Playmaker (Assists) -->
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm">
+                        <h3 class="text-sm font-bold font-heading text-slate-950 dark:text-white mb-4 border-b border-slate-100 dark:border-slate-855 pb-2 flex items-center gap-1.5">
+                            🎯 Most Assists Leaderboard (Top 5)
+                        </h3>
+                        <div class="space-y-2.5" id="statsAssists">
+                            <!-- Populated dynamic -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Red Cards Leaderboard -->
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm">
+                        <h3 class="text-sm font-bold font-heading text-slate-950 dark:text-white mb-4 border-b border-slate-100 dark:border-slate-855 pb-2 flex items-center gap-1.5">
+                            🟥 Discipline: Red Cards Leaderboard
+                        </h3>
+                        <div class="space-y-2.5" id="statsRedCards">
+                            <!-- Populated dynamic -->
+                        </div>
+                    </div>
+
+                    <!-- Clean Sheets Leaderboard -->
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm">
+                        <h3 class="text-sm font-bold font-heading text-slate-950 dark:text-white mb-4 border-b border-slate-100 dark:border-slate-855 pb-2 flex items-center gap-1.5">
+                            🧤 Clean Sheets (Golden Glove)
+                        </h3>
+                        <div class="space-y-2.5" id="statsCleanSheets">
+                            <!-- Populated dynamic -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 9: SPORTS ANALYTICS -->
+            <section id="section-analytics" class="section-container hidden flex-col gap-6">
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm">
+                    <h2 class="text-xl font-bold font-heading text-slate-950 dark:text-white">📈 Tournament Statistical Analytics</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Interactive custom visualizations highlighting team performance trends across completed official matches.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Goals Per Team SVG Chart -->
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">⚽ Goals by Country (Top scoring)</h3>
+                        <div class="h-60 flex items-end justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-2 px-2" id="chartGoals">
+                            <!-- SVG elements styled inline via js -->
+                        </div>
+                        <div class="flex justify-between text-[10px] text-slate-400 mt-2 px-1">
+                            <span>USA (4)</span>
+                            <span>MEX (2)</span>
+                            <span>KOR (2)</span>
+                            <span>CAN (1)</span>
+                            <span>BIH (1)</span>
+                            <span>CZE (1)</span>
+                            <span>PAR (1)</span>
+                        </div>
+                    </div>
+
+                    <!-- Cards Distribution Pie/Bar Chart -->
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">⚠️ Discipline Card Distribution (Official Records)</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-xs font-semibold mb-1">
+                                        <span>Total Yellow Cards Drawn</span>
+                                        <span class="text-amber-500 font-bold">15</span>
+                                    </div>
+                                    <div class="w-full bg-slate-100 dark:bg-slate-800 h-3 rounded-full overflow-hidden">
+                                        <div class="bg-amber-400 h-full" style="width: 83%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs font-semibold mb-1">
+                                        <span>Total Red Cards Issued</span>
+                                        <span class="text-red-500 font-bold font-mono">3</span>
+                                    </div>
+                                    <div class="w-full bg-slate-100 dark:bg-slate-800 h-3 rounded-full overflow-hidden">
+                                        <div class="bg-red-500 h-full" style="width: 17%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 text-[11px] text-slate-400 italic bg-slate-50 dark:bg-slate-800/40 p-3 rounded-xl border border-slate-200/50 dark:border-slate-800">
+                            💡 Discipline Warning: Opening matches have shown highly competitive situations. Sphephelo Sithole (RSA), Themba Zwane (RSA) and César Montes (MEX) have already picked up straight red cards during Matchday 1.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 10: BROADCAST STREAMS -->
+            <section id="section-streams" class="section-container hidden flex-col gap-6">
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm">
+                    <h2 class="text-xl font-bold font-heading text-slate-950 dark:text-white">📡 Broadcast & Live Stream Guide</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Official broadcasting and mobile live-streaming options for viewers in Pakistan and globally.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Pakistani Broadcast Channels -->
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm space-y-4">
+                        <h3 class="text-sm font-bold font-heading text-slate-950 dark:text-white flex items-center gap-1.5 border-b border-slate-100 dark:border-slate-855 pb-2">
+                            🇵🇰 Local Pakistani Outlets
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-800">
+                                <span class="text-xs font-extrabold text-amber-500 block">Tapmad Streaming</span>
+                                <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Official Digital Partner. High-definition lag-free mobile streams of every game.</p>
+                                <a href="https://www.tapmad.com" target="_blank" class="text-[10px] text-amber-500 hover:underline font-bold mt-2 block">Go to Tapmad Site ➔</a>
+                            </div>
+                            <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-800">
+                                <span class="text-xs font-extrabold text-slate-950 dark:text-white block">A-Sports / PTV Sports HD</span>
+                                <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Satellite & Terrestrial TV options. Coverage with local analysis panels.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Global Channels -->
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm space-y-4">
+                        <h3 class="text-sm font-bold font-heading text-slate-950 dark:text-white flex items-center gap-1.5 border-b border-slate-100 dark:border-slate-855 pb-2">
+                            🌎 International Official Feeds
+                        </h3>
+                        <div class="space-y-2.5 text-xs">
+                            <div class="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-850">
+                                <span class="font-bold">FOX Sports</span>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-500">USA (English)</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-850">
+                                <span class="font-bold">Telemundo</span>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-500">USA (Spanish)</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-855">
+                                <span class="font-bold">CTV / TSN</span>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-500">Canada</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-850">
+                                <span class="font-bold">Televisa / TV Azteca</span>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-500">Mexico</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 11: MATCH PREDICTOR -->
+            <section id="section-predictor" class="section-container hidden flex-col gap-6">
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm">
+                    <h2 class="text-xl font-bold font-heading text-slate-950 dark:text-white">🔮 H2H Match Predictor Pool</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Simulate outcome chances based on team forms and lock your fan votes for the daily fixtures.</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-slate-900 to-indigo-950 text-white p-6 rounded-3xl border border-slate-855 shadow-lg text-center space-y-4">
+                    <span class="text-xs uppercase font-extrabold tracking-widest text-amber-400 block">VOTE ON ACTIVE KICKOFF</span>
+                    <h3 class="text-lg font-bold">Who wins the next clash in Group B?</h3>
+                    <div class="flex items-center justify-center gap-4 my-4">
+                        <span class="text-4xl">🇨🇦</span>
+                        <span class="text-lg font-bold">Canada</span>
+                        <span class="text-slate-400">vs</span>
+                        <span class="text-lg font-bold">Bosnia</span>
+                        <span class="text-4xl">🇧🇦</span>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-3 max-w-md mx-auto">
+                        <button onclick="votePredictor('home')" class="bg-white/10 hover:bg-white/20 border border-white/20 p-3 rounded-xl transition text-xs font-bold">Canada Wins</button>
+                        <button onclick="votePredictor('draw')" class="bg-white/10 hover:bg-white/20 border border-white/20 p-3 rounded-xl transition text-xs font-bold">Draw</button>
+                        <button onclick="votePredictor('away')" class="bg-white/10 hover:bg-white/20 border border-white/20 p-3 rounded-xl transition text-xs font-bold">Bosnia Wins</button>
+                    </div>
+
+                    <div class="hidden pt-4 text-xs space-y-2 max-w-sm mx-auto" id="predictorResults">
+                        <p class="font-bold text-amber-400">Active Fan Vote Standings:</p>
+                        <div class="flex justify-between"><span>Canada:</span> <span class="font-bold">58%</span></div>
+                        <div class="flex justify-between"><span>Draw:</span> <span class="font-bold">18%</span></div>
+                        <div class="flex justify-between"><span>Bosnia:</span> <span class="font-bold">24%</span></div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- STATS INTERACTIVE OVERLAY MODAL (DYNAMIC INTERFACE FOR TEAMS & PLAYERS) -->
+    <div id="statsDetailModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md transition-all duration-300">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300" id="statsModalCard">
+            <!-- Modal Header -->
+            <div class="p-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center" id="statsModalHeader">
+                <!-- Dynamically populated -->
+            </div>
+            
+            <!-- Modal Body Content -->
+            <div class="p-6 overflow-y-auto max-h-[80vh]" id="statsModalBody">
+                <!-- Dynamically populated -->
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 bg-slate-50 dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+                <button onclick="closeStatsModal()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs py-2 px-5 rounded-xl transition shadow">
+                    Dismiss
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Footer -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-855 py-8 px-4 text-center mt-12 transition">
+        <div class="max-w-7xl mx-auto space-y-4">
+            <div class="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500 dark:text-slate-400">
+                <span>🇨🇦 Canada Venue</span>
+                <span>🇲🇽 Mexico Venue</span>
+                <span>🇺🇸 USA Venue</span>
+            </div>
+            <p class="text-[11px] text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                FIFA World Cup 2026 is scheduled from June 11 to July 19, 2026. This comprehensive live tracker dashboard offers unified timezone conversions to Pakistan Standard Time (PKT) for viewers throughout South Asia. Broadcaster schedules are modeled dynamically from verified sports telemetry data.
+            </p>
+            <div class="pt-4 border-t border-slate-100 dark:border-slate-850 flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] text-slate-400">
+                <div class="flex flex-col md:flex-row items-center gap-2">
+                    <span>© 2026 World Cup Pakistan Broadcast Companion. All rights reserved.</span>
+                    <span class="text-amber-500 font-bold border-l pl-2 border-slate-300 dark:border-slate-700">Developed by Rao Mubeen</span>
+                </div>
+                <span class="bg-amber-400 text-slate-950 font-bold px-3 py-1 rounded-full">Viewing Mode: Pakistan Time (+5 UTC)</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Core State System & Dynamic Match Simulation Engine -->
+    <script>
+        const matchData = [];
+        const teamStatsData = {};
+
+        // Hardcoded detailed statistics for highlight teams
+        const teamStats = {
+            "Mexico": { coach: "Javier Aguirre", captain: "Edson Álvarez", squad: ["Santiago Giménez", "Raúl Jiménez", "César Montes", "Julián Quiñones"], rank: 15 },
+            "USA": { coach: "Mauricio Pochettino", captain: "Tyler Adams", squad: ["Christian Pulisic", "Folarin Balogun", "Giovanni Reyna", "Weston McKennie"], rank: 11 },
+            "Spain": { coach: "Luis de la Fuente", captain: "Álvaro Morata", squad: ["Rodri", "Lamine Yamal", "Nico Williams"], rank: 3 },
+            "Argentina": { coach: "Lionel Scaloni", captain: "Lionel Messi", squad: ["Emi Martínez", "Rodrigo De Paul", "Lautaro Martínez"], rank: 1 },
+            "France": { coach: "Didier Deschamps", captain: "Kylian Mbappé", squad: ["Antoine Griezmann", "Aurélien Tchouaméni", "Eduardo Camavinga"], rank: 2 },
+            "Germany": { coach: "Julian Nagelsmann", captain: "Joshua Kimmich", squad: ["Florian Wirtz", "Jamal Musiala", "Kai Havertz"], rank: 16 }
+        };
+
+        const groupsData = {
+            'A': [
+                { name: "Mexico", flag: "🇲🇽", p: 1, w: 1, d: 0, l: 0, gd: 2, pts: 3, state: "Qualified" },
+                { name: "South Korea", flag: "🇰🇷", p: 1, w: 1, d: 0, l: 0, gd: 1, pts: 3, state: "Qualified" },
+                { name: "Czechia", flag: "🇨🇿", p: 1, w: 0, d: 0, l: 1, gd: -1, pts: 0, state: "Normal" },
+                { name: "South Africa", flag: "🇿🇦", p: 1, w: 0, d: 0, l: 1, gd: -2, pts: 0, state: "Normal" }
+            ],
+            'B': [
+                { name: "Canada", flag: "🇨🇦", p: 1, w: 0, d: 1, l: 0, gd: 0, pts: 1, state: "Normal" },
+                { name: "Bosnia & Herzegovina", flag: "🇧🇦", p: 1, w: 0, d: 1, l: 0, gd: 0, pts: 1, state: "Normal" },
+                { name: "Switzerland", flag: "🇨🇭", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Qatar", flag: "🇶🇦", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" }
+            ],
+            'C': [
+                { name: "Brazil", flag: "🇧🇷", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Morocco", flag: "🇲🇦", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Haiti", flag: "🇭🇹", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Scotland", flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" }
+            ],
+            'D': [
+                { name: "USA", flag: "🇺🇸", p: 1, w: 1, d: 0, l: 0, gd: 3, pts: 3, state: "Qualified" },
+                { name: "Türkiye", flag: "🇹🇷", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Australia", flag: "🇦🇺", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Paraguay", flag: "🇵🇾", p: 1, w: 0, d: 0, l: 1, gd: -3, pts: 0, state: "Normal" }
+            ],
+            'E': [
+                { name: "Germany", flag: "🇩🇪", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Curaçao", flag: "🇨🇼", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Ivory Coast", flag: "🇨🇮", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Ecuador", flag: "🇪🇨", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" }
+            ],
+            'F': [
+                { name: "Netherlands", flag: "🇳🇱", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Japan", flag: "🇯🇵", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Sweden", flag: "🇸🇪", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Tunisia", flag: "🇹🇳", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" }
+            ],
+            'G': [
+                { name: "Belgium", flag: "🇧🇪", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Egypt", flag: "🇪🇬", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "IR Iran", flag: "🇮🇷", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "New Zealand", flag: "🇳🇿", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" }
+            ],
+            'H': [
+                { name: "Spain", flag: "🇪🇸", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Cabo Verde", flag: "🇨🇻", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Saudi Arabia", flag: "🇸🇦", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Uruguay", flag: "🇺🇾", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" }
+            ],
+            'I': [
+                { name: "France", flag: "🇫🇷", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Senegal", flag: "🇸🇳", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Iraq", flag: "🇮🇶", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Norway", flag: "🇳🇴", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" }
+            ],
+            'J': [
+                { name: "Argentina", flag: "🇦🇷", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Algeria", flag: "🇩🇿", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Austria", flag: "🇦🇹", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Jordan", flag: "🇯🇴", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" }
+            ],
+            'K': [
+                { name: "Portugal", flag: "🇵🇹", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "DR Congo", flag: "🇨🇩", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Uzbekistan", flag: "🇺🇿", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Colombia", flag: "🇨🇴", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" }
+            ],
+            'L': [
+                { name: "England", flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Croatia", flag: "🇭🇷", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Ghana", flag: "🇬🇭", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" },
+                { name: "Panama", flag: "🇵🇦", p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0, state: "Normal" }
+            ]
+        };
+
+        const countryRanks = {
+            "Argentina": 1, "France": 2, "Spain": 3, "England": 4, "Brazil": 5, "Belgium": 6, "Netherlands": 7, "Portugal": 8, "Colombia": 9, "Italy": 10,
+            "USA": 11, "Croatia": 12, "Germany": 13, "Morocco": 14, "Mexico": 15, "Uruguay": 16, "Senegal": 18, "IR Iran": 19,
+            "Japan": 20, "South Korea": 22, "Australia": 24, "Sweden": 25, "Türkiye": 28, "Ecuador": 30, "Austria": 31, "Egypt": 32,
+            "Qatar": 34, "Ivory Coast": 35, "Tunisia": 41, "Algeria": 44, "Norway": 45, "Czechia": 46, "Uzbekistan": 50, "DR Congo": 51,
+            "Saudi Arabia": 56, "Paraguay": 57, "Iraq": 58, "South Africa": 59, "Cabo Verde": 65, "Ghana": 68, "Panama": 73, "Bosnia & Herzegovina": 74,
+            "Haiti": 86, "Curaçao": 90, "Jordan": 92, "New Zealand": 94, "Scotland": 39, "Canada": 40
+        };
+
+        const countryRegions = {
+            "Mexico": "latin", "South Korea": "asia", "Czechia": "euro_east", "South Africa": "africa",
+            "Canada": "anglo", "Bosnia & Herzegovina": "euro_east", "Switzerland": "euro_west", "Qatar": "middle_east",
+            "Brazil": "latin", "Morocco": "africa", "Haiti": "latin", "Scotland": "euro_west",
+            "USA": "anglo", "Paraguay": "latin", "Australia": "anglo", "Türkiye": "middle_east",
+            "Germany": "euro_west", "Curaçao": "latin", "Ivory Coast": "africa", "Ecuador": "latin",
+            "Netherlands": "euro_west", "Japan": "asia", "Sweden": "euro_west", "Tunisia": "africa",
+            "Belgium": "euro_west", "Egypt": "africa", "IR Iran": "middle_east", "New Zealand": "anglo",
+            "Spain": "latin", "Cabo Verde": "africa", "Saudi Arabia": "middle_east", "Uruguay": "latin",
+            "France": "euro_west", "Senegal": "africa", "Iraq": "middle_east", "Norway": "euro_west",
+            "Argentina": "latin", "Algeria": "africa", "Austria": "euro_west", "Jordan": "middle_east",
+            "Portugal": "latin", "DR Congo": "africa", "Uzbekistan": "euro_east", "Colombia": "latin",
+            "England": "euro_west", "Croatia": "euro_east", "Ghana": "africa", "Panama": "latin"
+        };
+
+        const regionNames = {
+            latin: {
+                first: ["Carlos", "José", "Luis", "Juan", "Mateo", "Santiago", "Sebastián", "Lucas", "Diego", "Enzo", "Felipe", "Gabriel", "João", "Pedro", "Thiago", "Miguel"],
+                last: ["Rodríguez", "González", "López", "Gómez", "Fernández", "Silva", "Santos", "Sousa", "Oliveira", "Martínez", "Hernández", "Díaz", "Pérez", "Sánchez", "Romero", "Álvarez"]
+            },
+            asia: {
+                first: ["Min-jae", "Heung-min", "Kang-in", "Gue-sung", "Woo-yeong", "Kaoru", "Takefusa", "Wataru", "Kyogo", "Daichi", "Hiroki", "Koki", "Takumi"],
+                last: ["Kim", "Lee", "Park", "Choi", "Jung", "Sato", "Suzuki", "Takahashi", "Tanaka", "Watanabe", "Ito", "Nakamura", "Kobayashi"]
+            },
+            euro_west: {
+                first: ["Thomas", "Michael", "Andreas", "Stefan", "Lukas", "Jan", "Kevin", "Robin", "Arthur", "Lucas", "Kylian", "Antoine", "Olivier", "William", "John", "James", "Robert", "Harry"],
+                last: ["Müller", "Schmidt", "Schneider", "Fischer", "de Jong", "van Dijk", "Dupont", "Martin", "Bernard", "Dubois", "Smith", "Jones", "Taylor", "Brown", "Wilson"]
+            },
+            euro_east: {
+                first: ["Luka", "Ivan", "Mateo", "Dominik", "Joško", "Andrej", "Tomáš", "Jan", "Petr", "David", "Edin", "Sead", "Miralem"],
+                last: ["Horvat", "Kovačević", "Babić", "Novak", "Svoboda", "Novotný", "Dvořák", "Modrić", "Kovačić", "Gvardiol", "Džeko"]
+            },
+            africa: {
+                first: ["Sadio", "Kalidou", "Idrissa", "Cheikhou", "Mohamed", "Mostafa", "Omar", "Nicolas", "Seko", "Karim", "Yassine", "Sofyan", "Thomas", "Jordan", "Chancel"],
+                last: ["Ndlovu", "Khumalo", "Diallo", "Ndiaye", "Faye", "Diop", "Salah", "Elneny", "Ahmed", "Traoré", "Koné", "Mensah", "Owusu", "Hakimi"]
+            },
+            middle_east: {
+                first: ["Akram", "Almoez", "Hassan", "Salem", "Yasser", "Abdulelah", "Ali", "Taremi", "Sardar", "Alireza", "Musa"],
+                last: ["Al-Thani", "Al-Mansoori", "Al-Sada", "Al-Dosari", "Al-Shahrani", "Al-Faraj", "Haddad", "Jaber", "Rahimi", "Hosseini", "Rezaei"]
+            },
+            anglo: {
+                first: ["Christian", "Tyler", "Weston", "Brendan", "Jonathan", "Cyle", "Alphonso", "Tajon", "Jackson", "Chris", "Matt", "Ethan"],
+                last: ["Smith", "Johnson", "Williams", "Miller", "Davis", "Pulisic", "McKennie", "Adams", "Reyna", "Balogun", "Davies", "Larin"]
+            }
+        };
+
+        const playerProfiles = {
+            "Lionel Messi": { position: "Forward (CF)", goals: 0, assists: 0, matches: 0, club: "Inter Miami 🇺🇸", age: 38, preferredFoot: "Left", number: 10, pace: 80, shot: 89, pass: 94, dribble: 96, defense: 33, physical: 64, team: "Argentina" },
+            "Kylian Mbappé": { position: "Forward (ST/LW)", goals: 0, assists: 0, matches: 0, club: "Real Madrid 🇪🇸", age: 27, preferredFoot: "Right", number: 10, pace: 97, shot: 90, pass: 82, dribble: 92, defense: 36, physical: 78, team: "France" },
+            "Lamine Yamal": { position: "Winger (RW)", goals: 0, assists: 0, matches: 0, club: "FC Barcelona 🇪🇸", age: 18, preferredFoot: "Left", number: 19, pace: 91, shot: 81, pass: 85, dribble: 93, defense: 41, physical: 67, team: "Spain" },
+            "Cristiano Ronaldo": { position: "Striker (ST)", goals: 0, assists: 0, matches: 0, club: "Al-Nassr 🇸🇦", age: 41, preferredFoot: "Right", number: 7, pace: 82, shot: 91, pass: 79, dribble: 84, defense: 34, physical: 80, team: "Portugal" },
+            "Jude Bellingham": { position: "Midfielder (CAM)", goals: 0, assists: 0, matches: 0, club: "Real Madrid 🇪🇸", age: 22, preferredFoot: "Right", number: 10, pace: 83, shot: 82, pass: 86, dribble: 88, defense: 78, physical: 82, team: "England" },
+            "Christian Pulisic": { position: "Winger (LW)", goals: 1, assists: 1, matches: 1, club: "AC Milan 🇮🇹", age: 27, preferredFoot: "Right", number: 10, pace: 89, shot: 82, pass: 84, dribble: 88, defense: 45, physical: 70, team: "USA" },
+            "Folarin Balogun": { position: "Striker (ST)", goals: 2, assists: 0, matches: 1, club: "AS Monaco 🇫🇷", age: 24, preferredFoot: "Right", number: 20, pace: 86, shot: 84, pass: 74, dribble: 80, defense: 35, physical: 78, team: "USA" },
+            "Santiago Giménez": { position: "Striker (ST)", goals: 0, assists: 1, matches: 1, club: "Feyenoord 🇳🇱", age: 25, preferredFoot: "Left", number: 9, pace: 81, shot: 83, pass: 72, dribble: 79, defense: 38, physical: 82, team: "Mexico" },
+            "Erling Haaland": { position: "Striker (ST)", goals: 0, assists: 0, matches: 0, club: "Manchester City 🏴󠁧󠁢󠁥󠁮󠁧󠁿", age: 25, preferredFoot: "Left", number: 9, pace: 89, shot: 93, pass: 66, dribble: 80, defense: 45, physical: 88, team: "Norway" },
+            "Mohamed Salah": { position: "Winger (RW)", goals: 0, assists: 0, matches: 0, club: "Liverpool 🏴󠁧󠁢󠁥󠁮󠁧󠁿", age: 33, preferredFoot: "Left", number: 11, pace: 89, shot: 87, pass: 82, dribble: 88, defense: 45, physical: 75, team: "Egypt" },
+            "Son Heung-min": { position: "Forward (LW)", goals: 0, assists: 0, matches: 0, club: "Tottenham 🏴󠁧󠁢󠁥󠁮󠁧󠁿", age: 33, preferredFoot: "Right", number: 7, pace: 87, shot: 88, pass: 80, dribble: 84, defense: 42, physical: 72, team: "South Korea" },
+            "Alphonso Davies": { position: "Left Back (LB)", goals: 0, assists: 0, matches: 1, club: "Bayern Munich 🇩🇪", age: 25, preferredFoot: "Left", number: 19, pace: 95, shot: 71, pass: 78, dribble: 86, defense: 76, physical: 77, team: "Canada" },
+            "Akram Afif": { position: "Forward (LW)", goals: 0, assists: 0, matches: 0, club: "Al-Sadd 🇶🇦", age: 29, preferredFoot: "Right", number: 11, pace: 84, shot: 79, pass: 82, dribble: 86, defense: 31, physical: 72, team: "Qatar" },
+            "Breel Embolo": { position: "Striker (ST)", goals: 0, assists: 0, matches: 0, club: "AS Monaco 🇫🇷", age: 29, preferredFoot: "Right", number: 7, pace: 85, shot: 78, pass: 71, dribble: 81, defense: 40, physical: 84, team: "Switzerland" }
+        };
+
+        const stadiumData = [
+            { name: "MetLife Stadium", city: "New York / New Jersey", capacity: "82,500", matches: "8 Matches (Including Final)" },
+            { name: "Estadio Azteca", city: "Mexico City", capacity: "87,523", matches: "5 Matches (Opening Match)" },
+            { name: "SoFi Stadium", city: "Los Angeles", capacity: "70,240", matches: "8 Matches" },
+            { name: "BC Place", city: "Vancouver", capacity: "54,500", matches: "7 Matches" },
+            { name: "BMO Field", city: "Toronto", capacity: "30,000", matches: "6 Matches" },
+            { name: "AT&T Stadium", city: "Dallas / Arlington", capacity: "80,000", matches: "9 Matches" }
+        ];
+
+        const topScorers = [
+            { name: "Folarin Balogun", team: "🇺🇸 USA", goals: 2 },
+            { name: "Raúl Jiménez", team: "🇲🇽 Mexico", goals: 1 },
+            { name: "Julián Quiñones", team: "🇲🇽 Mexico", goals: 1 },
+            { name: "Hwang In-beom", team: "🇰🇷 South Korea", goals: 1 },
+            { name: "Oh Hyeon-gyu", team: "🇰🇷 South Korea", goals: 1 },
+            { name: "Ladislav Krejčí", team: "🇨🇿 Czechia", goals: 1 },
+            { name: "Jovo Lukić", team: "🇧🇦 Bosnia & Herzegovina", goals: 1 },
+            { name: "Cyle Larin", team: "🇨🇦 Canada", goals: 1 },
+            { name: "Maurício", team: "🇵🇾 Paraguay", goals: 1 },
+            { name: "Giovanni Reyna", team: "🇺🇸 USA", goals: 1 }
+        ];
+
+        const topAssists = [
+            { name: "Roberto Alvarado", team: "🇲🇽 Mexico", assists: 1 },
+            { name: "Lee Kang-in", team: "🇰🇷 South Korea", assists: 1 },
+            { name: "Hwang In-beom", team: "🇰🇷 South Korea", assists: 1 },
+            { name: "Vladimír Coufal", team: "🇨🇿 Czechia", assists: 1 },
+            { name: "Giovanni Reyna", team: "🇺🇸 USA", assists: 1 },
+            { name: "Weston McKennie", team: "🇺🇸 USA", assists: 1 }
+        ];
+
+        const disciplineRedCards = [
+            { name: "César Montes", team: "🇲🇽 Mexico", cards: 1 },
+            { name: "Sphephelo Sithole", team: "🇿🇦 South Africa", cards: 1 },
+            { name: "Themba Zwane", team: "🇿🇦 South Africa", cards: 1 }
+        ];
+
+        const disciplineCleanSheets = [
+            { name: "Raúl Rangel", team: "🇲🇽 Mexico", cleanSheets: 1 }
+        ];
+
+        let liveMatchMin = 24;
+        let team1Score = 0;
+        let team2Score = 0;
+        let liveStatPoss1 = 46;
+        let liveStatShots1 = 3;
+        let liveStatShots2 = 5;
+        let totalGoalsRecorded = 12;
+
+        let virtualTimeMode = "realtime";
+        let countdownInterval = null;
+
+        function initRosterAndStats() {
+            Object.keys(groupsData).forEach(groupLetter => {
+                const teams = groupsData[groupLetter];
+                teams.forEach((team, idx) => {
+                    const name = team.name;
+                    const rank = countryRanks[name] || 50;
+
+                    let gf = team.w * 2 + team.d;
+                    let ga = team.l * 2 + team.d;
+
+                    // Manual overrides for already completed mock matches
+                    if (name === "USA") { gf = 4; ga = 1; }
+                    if (name === "Paraguay") { gf = 1; ga = 4; }
+                    if (name === "Mexico") { gf = 2; ga = 0; }
+                    if (name === "South Africa") { gf = 0; ga = 2; }
+                    if (name === "South Korea") { gf = 2; ga = 1; }
+                    if (name === "Czechia") { gf = 1; ga = 2; }
+                    if (name === "Canada") { gf = 1; ga = 1; }
+                    if (name === "Bosnia & Herzegovina") { gf = 1; ga = 1; }
+
+                    teamStatsData[name] = {
+                        p: team.p,
+                        w: team.w,
+                        d: team.d,
+                        l: team.l,
+                        gf: gf,
+                        ga: ga,
+                        pts: team.pts,
+                        position: `${idx + 1}${idx === 0 ? "st" : idx === 1 ? "nd" : idx === 2 ? "rd" : "th"}`,
+                        group: `Group ${groupLetter}`,
+                        flag: team.flag,
+                        rank: rank
+                    };
+
+                    // Add support mapping key variations
+                    if (name === "USA") {
+                        teamStatsData["United States"] = { ...teamStatsData[name] };
+                    }
+                    if (name === "IR Iran") {
+                        teamStatsData["Iran"] = { ...teamStatsData[name] };
+                    }
+
+                    // Dynamic Generation: build full rosters for every team!
+                    const region = countryRegions[name] || "anglo";
+                    const namesPool = regionNames[region] || regionNames.anglo;
+
+                    const positions = [
+                        "Goalkeeper (GK)", "Defender (CB)", "Defender (LB)", "Defender (RB)",
+                        "Midfielder (CM)", "Midfielder (CDM)", "Midfielder (CAM)", "Winger (LM)",
+                        "Winger (RM)", "Striker (ST)", "Striker (CF)", "Forward (ST)",
+                        "Defender (CB)", "Midfielder (CM)", "Striker (ST)"
+                    ];
+
+                    for (let i = 0; i < 15; i++) {
+                        const first = namesPool.first[(idx + i * 3) % namesPool.first.length];
+                        const last = namesPool.last[(idx * 2 + i * 7) % namesPool.last.length];
+                        const playerName = `${first} ${last}`;
+
+                        // Prevent overwriting handcrafted superstars
+                        if (playerProfiles[playerName]) continue;
+
+                        const qualityModifier = Math.max(0, 100 - rank);
+                        const baseAttr = Math.floor(65 + (qualityModifier / 100) * 23);
+
+                        const goalsCount = (i === 9 || i === 10) ? (team.w * 1) : 0;
+                        const assistCount = (i === 6 || i === 7) ? (team.w * 1) : 0;
+
+                        playerProfiles[playerName] = {
+                            position: positions[i],
+                            goals: goalsCount,
+                            assists: assistCount,
+                            matches: team.p,
+                            club: getClubByRegion(region, i),
+                            age: 21 + ((idx * 3 + i * 11) % 14),
+                            preferredFoot: i % 3 === 0 ? "Left" : "Right",
+                            number: i + 1,
+                            pace: Math.min(99, baseAttr + (i % 6)),
+                            shot: Math.min(99, baseAttr + (i % 4) - (i < 8 ? 5 : 0)),
+                            pass: Math.min(99, baseAttr + (i % 3) - (i < 4 ? 6 : 0)),
+                            dribble: Math.min(99, baseAttr + (i % 5)),
+                            defense: Math.min(99, baseAttr - (i > 4 ? 15 : -10)),
+                            physical: Math.min(99, baseAttr + (i % 7)),
+                            team: name
+                        };
+                    }
+                });
+            });
+        }
+
+        function getClubByRegion(region, seed) {
+            const list = {
+                latin: ["Flamengo 🇧🇷", "Palmeiras 🇧🇷", "River Plate 🇦🇷", "Boca Juniors 🇦🇷", "Club América 🇲🇽", "Monterrey 🇲🇽", "Real Madrid 🇪🇸", "Barcelona 🇪🇸"],
+                asia: ["Al-Hilal 🇸🇦", "Urawa Reds 🇯🇵", "Jeonbuk Motors 🇰🇷", "Vissel Kobe 🇯🇵", "Celtic 🏴󠁧󠁢󠁳󠁣󠁴󠁿", "Tottenham 🏴󠁧󠁢󠁥󠁮󠁧󠁿"],
+                euro_west: ["Bayern Munich 🇩🇪", "Dortmund 🇩🇪", "PSG 🇫🇷", "Marseille 🇫🇷", "Ajax 🇳🇱", "PSV 🇳🇱", "Real Madrid 🇪🇸", "AC Milan 🇮🇹", "Inter Milan 🇮🇹"],
+                euro_east: ["Dinamo Zagreb 🇭🇷", "Hajduk Split 🇭🇷", "Slavia Prague 🇨🇿", "Sparta Prague 🇨🇿", "Salzburg 🇦🇹", "Fenerbahçe 🇹🇷", "Galatasaray 🇹🇷"],
+                africa: ["Al Ahly 🇪🇬", "Wydad AC 🇲🇦", "Mamelodi Sundowns 🇿🇦", "Marseille 🇫🇷", "Lens 🇫🇷", "Watford 🏴󠁧󠁢󠁥󠁮󠁧󠁿"],
+                middle_east: ["Al-Sadd 🇶🇦", "Al-Duhail 🇶🇦", "Al-Nassr 🇸🇦", "Al-Ittihad 🇸🇦", "Persepolis 🇮🇷", "Esteghlal 🇮🇷"],
+                anglo: ["LA Galaxy 🇺🇸", "Inter Miami 🇺🇸", "Toronto FC 🇨🇦", "Seattle Sounders 🇺🇸", "New York City 🇺🇸", "Chelsea 🏴󠁧󠁢󠁥󠁮󠁧󠁿", "Leeds United 🏴󠁧󠁢󠁥󠁮󠁧󠁿"]
+            };
+            const clubs = list[region] || list.anglo;
+            return clubs[seed % clubs.length];
+        }
+
+        function compile104MatchSchedule() {
+            matchData.length = 0;
+            let matchCounter = 1;
+            const groupLetters = Object.keys(groupsData);
+            const baseStartDate = new Date("2026-06-11T13:00:00");
+
+            groupLetters.forEach((letter, gIdx) => {
+                const teams = groupsData[letter];
+                const pairings = [
+                    [0, 1], [2, 3], // Matchday 1
+                    [0, 2], [1, 3], // Matchday 2
+                    [3, 0], [1, 2]  // Matchday 3
+                ];
+
+                pairings.forEach((pair, pIdx) => {
+                    const team1 = teams[pair[0]];
+                    const team2 = teams[pair[1]];
+
+                    const dayOffset = Math.floor(gIdx * 1.25 + pIdx * 0.45);
+                    const matchDate = new Date(baseStartDate.getTime() + dayOffset * 24 * 60 * 60 * 1000);
+
+                    const hourSlots = [12, 15, 18, 20];
+                    const localHour = hourSlots[(gIdx + pIdx) % hourSlots.length];
+                    matchDate.setHours(localHour, 0, 0, 0);
+
+                    const stadiumIndex = (gIdx + pIdx) % stadiumData.length;
+                    const stadium = stadiumData[stadiumIndex];
+
+                    const pktOffsetHours = 5 - (-6); // Standard Central offset mapping
+                    const pktDate = new Date(matchDate.getTime() + pktOffsetHours * 60 * 60 * 1000);
+
+                    const optionsDate = { weekday: 'long', month: 'long', day: 'numeric' };
+                    const localDateStr = matchDate.toLocaleDateString('en-US', optionsDate);
+                    const localTimeStr = matchDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+                    const pktDateStr = pktDate.toLocaleDateString('en-US', optionsDate);
+                    const pktTimeStr = pktDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+                    matchData.push({
+                        id: matchCounter,
+                        matchNo: `Match ${matchCounter}`,
+                        stage: "group",
+                        group: `Group ${letter}`,
+                        team1: team1.name,
+                        team1Flag: team1.flag,
+                        team2: team2.name,
+                        team2Flag: team2.flag,
+                        localDate: localDateStr,
+                        localTime: localTimeStr,
+                        offset: -6,
+                        pktDate: pktDateStr,
+                        pktTime: pktTimeStr,
+                        stadium: stadium.name,
+                        city: stadium.city,
+                        status: matchCounter <= 4 ? "Completed" : "Upcoming"
+                    });
+
+                    if (matchCounter === 1) { matchData[0].score1 = 2; matchData[0].score2 = 0; matchData[0].status = "Completed (2-0)"; }
+                    if (matchCounter === 2) { matchData[1].score1 = 2; matchData[1].score2 = 1; matchData[1].status = "Completed (2-1)"; }
+                    if (matchCounter === 3) { matchData[2].score1 = 1; matchData[2].score2 = 1; matchData[2].status = "Completed (1-1)"; }
+                    if (matchCounter === 4) { matchData[3].score1 = 4; matchData[3].score2 = 1; matchData[3].status = "Completed (4-1)"; }
+
+                    matchCounter++;
+                });
+            });
+
+            // Add Knockout slots (Matches 73 to 104)
+            const stages = [
+                { name: "Round of 32", key: "roundof32", count: 16, startId: 73 },
+                { name: "Round of 16", key: "roundof16", count: 8, startId: 89 },
+                { name: "Quarter Finals", key: "quarterfinals", count: 4, startId: 97 },
+                { name: "Semi Finals", key: "semifinals", count: 2, startId: 101 },
+                { name: "Playoff", key: "knockout", count: 1, startId: 103 },
+                { name: "Final", key: "knockout", count: 1, startId: 104 }
+            ];
+
+            stages.forEach((stage, idx) => {
+                for (let i = 0; i < stage.count; i++) {
+                    const matchId = stage.startId + i;
+                    const dateOffset = 17 + idx * 3 + i * 0.5;
+                    const matchDate = new Date(baseStartDate.getTime() + dateOffset * 24 * 60 * 60 * 1000);
+                    matchDate.setHours(18, 0, 0, 0);
+
+                    const pktOffsetHours = 5 - (-4);
+                    const pktDate = new Date(matchDate.getTime() + pktOffsetHours * 60 * 60 * 1000);
+
+                    const optionsDate = { weekday: 'long', month: 'long', day: 'numeric' };
+                    const localDateStr = matchDate.toLocaleDateString('en-US', optionsDate);
+                    const localTimeStr = matchDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+                    const pktDateStr = pktDate.toLocaleDateString('en-US', optionsDate);
+                    const pktTimeStr = pktDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+                    matchData.push({
+                        id: matchId,
+                        matchNo: `Match ${matchId}`,
+                        stage: stage.key,
+                        group: stage.name,
+                        team1: `Winner Match ${matchId - 16}`,
+                        team1Flag: "🏳️",
+                        team2: `Runner-up Match ${matchId - 15}`,
+                        team2Flag: "🏳️",
+                        localDate: localDateStr,
+                        localTime: localTimeStr,
+                        offset: -4,
+                        pktDate: pktDateStr,
+                        pktTime: pktTimeStr,
+                        stadium: stadiumData[i % stadiumData.length].name,
+                        city: stadiumData[i % stadiumData.length].city,
+                        status: "Upcoming"
+                    });
+                }
+            });
+        }
+
+        window.onload = function() {
+            initRosterAndStats();
+            compile104MatchSchedule();
+
+            updatePktClock();
+            setInterval(updatePktClock, 1000);
+            
+            // Render UI structures
+            renderDashboardLive();
+            renderDashboardUpcoming();
+            renderDashboardGroupStandings();
+            renderStadiums();
+            renderStatsList();
+            renderAnalyticsChart();
+            runH2HComparison();
+            renderGroupStandingsView();
+            renderScheduleTable(matchData);
+
+            // Start Live matching Standby Countdown Controller
+            initTimeMachineSystem();
+
+            // Mobile menu bindings
+            document.getElementById("mobileMenuBtn").onclick = function() {
+                const sidebar = document.getElementById("sidebar");
+                sidebar.classList.toggle("hidden");
+                sidebar.classList.toggle("absolute");
+                sidebar.classList.toggle("z-50");
+                sidebar.classList.toggle("left-4");
+                sidebar.classList.toggle("top-16");
+                sidebar.classList.toggle("bg-white");
+                sidebar.classList.toggle("shadow-2xl");
+            };
+        };
+
+        function initTimeMachineSystem() {
+            setTimeMode("realtime");
+        }
+
+        function setTimeMode(mode) {
+            virtualTimeMode = mode;
+            const badge = document.getElementById("liveHeaderBadge");
+            const modeText = document.getElementById("engineModeText");
+            const realBtn = document.getElementById("btn-mode-real");
+            const swissBtn = document.getElementById("btn-mode-swiss");
+
+            if (countdownInterval) clearInterval(countdownInterval);
+
+            // Dynamically alter Match 5 status to guarantee consistency in tables
+            const match5 = matchData.find(m => m.id === 5);
+            if (match5) {
+                match5.status = (mode === "swiss") ? "Live" : "Upcoming";
+            }
+
+            // Sync visual schedule listings immediately
+            renderScheduleTable(matchData);
+            renderDashboardUpcoming();
+
+            if (mode === "realtime") {
+                badge.className = "bg-amber-500 text-slate-950 text-[9px] px-1.5 py-0.5 rounded font-sans uppercase font-extrabold animate-pulse";
+                badge.innerText = "STANDBY";
+                modeText.innerText = "Real-Time Mode (Default)";
+                
+                realBtn.className = "bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-lg transition text-[11px]";
+                swissBtn.className = "bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition text-[11px] border border-slate-700";
+
+                document.getElementById("liveStandbyScreen").classList.remove("hidden");
+                document.getElementById("liveActiveScreen").classList.add("hidden");
+
+                document.getElementById("liveCenterStatusDesc").innerText = "There is currently no official live fixture in progress at this time on June 13, 2026.";
+                document.getElementById("liveCenterTimerText").innerText = "Standby Mode";
+                document.getElementById("liveCenterIndicatorDot").className = "h-2 w-2 rounded-full bg-amber-400 animate-pulse";
+                document.getElementById("liveBadgePing").className = "h-2 w-2 rounded-full bg-amber-400 animate-pulse";
+                document.getElementById("liveStatusEmoji").innerText = "⚪";
+
+                document.getElementById("heroSimulationStatus").innerHTML = `<span class="h-1.5 w-1.5 rounded-full bg-amber-400"></span> Live Standby`;
+                document.getElementById("heroTimerLabel").innerText = "Countdown to Live Broadcast";
+
+                // Count down to June 14 @ 12:00 AM PKT
+                startCountdownTimer(new Date("2026-06-14T00:00:00+05:00"));
+            } else if (mode === "swiss") {
+                badge.className = "bg-red-500 text-white text-[9px] px-1.5 py-0.5 rounded font-sans uppercase font-extrabold animate-pulse";
+                badge.innerText = "LIVE MATCH";
+                modeText.innerText = "Qatar vs Switzerland LIVE Mode";
+
+                realBtn.className = "bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition text-[11px] border border-slate-700";
+                swissBtn.className = "bg-red-500 text-white font-bold px-3 py-1.5 rounded-lg transition text-[11px] shadow-lg animate-pulse";
+
+                document.getElementById("liveStandbyScreen").classList.add("hidden");
+                document.getElementById("liveActiveScreen").classList.remove("hidden");
+
+                document.getElementById("liveCenterStatusDesc").innerText = "Watch active live simulator tracking of Group stage fixtures in real-time.";
+                document.getElementById("liveCenterTimerText").innerText = "Simulated Updates Every 4s";
+                document.getElementById("liveCenterIndicatorDot").className = "h-2 w-2 rounded-full bg-red-500 animate-ping";
+                document.getElementById("liveBadgePing").className = "h-2 w-2 rounded-full bg-red-500 animate-ping";
+                document.getElementById("liveStatusEmoji").innerText = "🔴";
+
+                document.getElementById("heroSimulationStatus").innerHTML = `<span class="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse"></span> Match Day Live`;
+                document.getElementById("heroTimerLabel").innerText = "Broadcast Match Time Remaining";
+
+                startCountdownTimer(null, true);
+            }
+        }
+
+        function startCountdownTimer(targetDate, isLiveMode = false) {
+            const dashTimer = document.getElementById("dashCountdownTimer");
+            const standbyTimer = document.getElementById("standbyCountdown");
+
+            if (isLiveMode) {
+                countdownInterval = setInterval(() => {
+                    const elapsedMin = Math.max(1, Math.min(90, liveMatchMin));
+                    const remainingMin = 90 - elapsedMin;
+                    const displayStr = `${remainingMin}m remaining`;
+                    if (dashTimer) dashTimer.innerText = displayStr;
+                }, 1000);
+                return;
+            }
+
+            function tick() {
+                const now = new Date();
+                const diff = targetDate - now;
+
+                if (diff <= 0) {
+                    if (dashTimer) dashTimer.innerText = "LIVE ON AIR";
+                    if (standbyTimer) standbyTimer.innerText = "LIVE ON AIR";
+                    return;
+                }
+
+                const hrs = Math.floor(diff / 3600000);
+                const mins = Math.floor((diff % 3600000) / 60000);
+                const secs = Math.floor((diff % 60000) / 1000);
+
+                const timeStr = `${String(hrs).padStart(2, '0')}h ${String(mins).padStart(2, '0')}m ${String(secs).padStart(2, '0')}s`;
+                if (dashTimer) dashTimer.innerText = timeStr;
+                if (standbyTimer) standbyTimer.innerText = timeStr;
+                const liveDashStandby = document.getElementById("dashStandbyCountdown");
+                if (liveDashStandby) liveDashStandby.innerText = timeStr;
+            }
+
+            tick();
+            countdownInterval = setInterval(tick, 1000);
+        }
+
+        function launchDemoSandbox() {
+            setTimeMode("swiss");
+            document.getElementById("sandboxExitBanner").classList.remove("hidden");
+        }
+
+        function exitDemoSandbox() {
+            setTimeMode("realtime");
+            document.getElementById("sandboxExitBanner").classList.add("hidden");
+        }
+
+        function runLiveSimulatorTick() {
+            if (virtualTimeMode !== "swiss") return;
+
+            liveMatchMin++;
+            if (liveMatchMin > 90) {
+                liveMatchMin = 1;
+                team1Score = 0;
+                team2Score = 0;
+                liveStatPoss1 = 50;
+                addLiveCommentary("🏁 Pre-match sequence over. First half kickoff begins for Qatar vs Switzerland.");
+            }
+
+            const posDelta = Math.floor(Math.random() * 5) - 2;
+            liveStatPoss1 = Math.max(35, Math.min(65, liveStatPoss1 + posDelta));
+
+            if (Math.random() > 0.6) {
+                if (Math.random() > 0.5) {
+                    liveStatShots1++;
+                    addLiveCommentary(`${liveMatchMin}' - Attempt on target by Akram Afif. Saved elegantly by Qatari defense.`);
+                } else {
+                    liveStatShots2++;
+                    addLiveCommentary(`${liveMatchMin}' - Granit Xhaka cuts inside from the right and unleashes a powerful shot over the bar.`);
+                }
+            }
+
+            if (Math.random() > 0.95) {
+                if (Math.random() > 0.5) {
+                    team1Score++;
+                    totalGoalsRecorded++;
+                    addLiveCommentary(`<strong>${liveMatchMin}' - GOAL FOR QATAR!!!</strong> Akram Afif makes a marvelous run down the wing and slotting it into the bottom left corner! Score: ${team1Score}-${team2Score}.`);
+                    triggerLiveToast(`⚽ GOAL! Qatar ${team1Score} - ${team2Score} Switzerland`);
+                } else {
+                    team2Score++;
+                    totalGoalsRecorded++;
+                    addLiveCommentary(`<strong>${liveMatchMin}' - GOAL FOR SWITZERLAND!!!</strong> Breel Embolo converts a clinical header from a corner kick. Score: ${team1Score}-${team2Score}.`);
+                    triggerLiveToast(`⚽ GOAL! Qatar ${team1Score} - ${team2Score} Switzerland`);
+                }
+            }
+
+            const domTime = document.getElementById("liveMatchTime");
+            const domScore1 = document.getElementById("liveTeam1Score");
+            const domScore2 = document.getElementById("liveTeam2Score");
+            if (domTime) domTime.innerText = `${liveMatchMin}'`;
+            if (domScore1) domScore1.innerText = team1Score;
+            if (domScore2) domScore2.innerText = team2Score;
+
+            const dPoss1 = document.getElementById("liveStatPoss1");
+            const dPoss2 = document.getElementById("liveStatPoss2");
+            const dBar = document.getElementById("liveStatPossBar");
+            if (dPoss1) dPoss1.innerText = `${liveStatPoss1}%`;
+            if (dPoss2) dPoss2.innerText = `${100 - liveStatPoss1}%`;
+            if (dBar) dBar.style.width = `${liveStatPoss1}%`;
+
+            const dShots1 = document.getElementById("liveStatShots1");
+            const dShots2 = document.getElementById("liveStatShots2");
+            if (dShots1) dShots1.innerText = liveStatShots1;
+            if (dShots2) dShots2.innerText = liveStatShots2;
+
+            const dGCount = document.getElementById("dashTotalGoals");
+            if (dGCount) dGCount.innerText = totalGoalsRecorded;
+
+            renderDashboardLive();
+        }
+
+        setInterval(runLiveSimulatorTick, 4000);
+
+        function triggerLiveToast(message) {
+            const toast = document.createElement("div");
+            toast.className = "fixed bottom-5 right-5 bg-slate-900 text-white border border-amber-400 p-4 rounded-2xl shadow-2xl z-50 text-xs flex items-center gap-3 animate-slide-in";
+            toast.innerHTML = `<span>⚡</span> <div><p class="font-bold text-amber-400">Live Tournament Alert</p><p class="text-slate-300">${message}</p></div>`;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 4000);
+
+            const badge = document.getElementById("notifBadge");
+            let val = parseInt(badge.innerText) || 0;
+            badge.innerText = val + 1;
+
+            const list = document.getElementById("notifList");
+            const entry = document.createElement("div");
+            entry.className = "p-3 text-[11px] hover:bg-slate-50 dark:hover:bg-slate-855 transition";
+            entry.innerHTML = `<p class="font-bold text-amber-500">🏆 Live Update Alert</p><p class="text-slate-600 dark:text-slate-300">${message}</p><span class="text-[9px] text-slate-400">Just Now</span>`;
+            list.prepend(entry);
+        }
+
+        function addLiveCommentary(text) {
+            const container = document.getElementById("liveCommentaryContainer");
+            if (!container) return;
+
+            const box = document.createElement("div");
+            box.className = "p-3 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-100 dark:border-slate-800 text-xs";
+            box.innerHTML = `<span class="font-bold text-slate-400">${liveMatchMin}'</span><p class="mt-1 text-slate-700 dark:text-slate-300">${text}</p>`;
+            
+            container.prepend(box);
+        }
+
+        function updatePktClock() {
+            const timeSpan = document.getElementById("pktLiveTime");
+            if (!timeSpan) return;
+
+            const date = new Date();
+            const utc = date.getTime() + (date.getTimezoneOffset() * 60000);
+            const pktTime = new Date(utc + (3600000 * 5));
+
+            let hr = pktTime.getHours();
+            let min = pktTime.getMinutes();
+            let sec = pktTime.getSeconds();
+            let ampm = hr >= 12 ? 'PM' : 'AM';
+            hr = hr % 12;
+            hr = hr ? hr : 12;
+
+            timeSpan.innerText = `${String(hr).padStart(2, '0')}:${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')} ${ampm} PKT`;
+        }
+
+        function switchSection(sectionId) {
+            document.querySelectorAll(".section-container").forEach(el => {
+                el.classList.add("hidden");
+                el.classList.remove("flex");
+            });
+
+            const activeSec = document.getElementById(`section-${sectionId}`);
+            activeSec.classList.remove("hidden");
+            activeSec.classList.add("flex");
+
+            document.querySelectorAll("#sidebar button").forEach(btn => {
+                btn.classList.remove("nav-active");
+            });
+            const activeBtn = document.getElementById(`nav-${sectionId}`);
+            if (activeBtn) activeBtn.classList.add("nav-active");
+
+            const sidebar = document.getElementById("sidebar");
+            if (window.innerWidth < 1024) {
+                sidebar.classList.add("hidden");
+                sidebar.classList.remove("absolute", "z-50");
+            }
+        }
+
+        function calculateManualTz() {
+            const offset = parseInt(document.getElementById("tzConvertOffset").value);
+            const timeInput = document.getElementById("tzConvertTime").value;
+
+            if (!timeInput) return;
+
+            let [hr, min] = timeInput.split(':').map(Number);
+            let diff = 5 - offset;
+            let pktHr = (hr + diff) % 24;
+            let isNextDay = (hr + diff) >= 24;
+
+            let ampm = pktHr >= 12 ? 'PM' : 'AM';
+            let formattedHr = pktHr % 12 === 0 ? 12 : pktHr % 12;
+
+            const resDiv = document.getElementById("tzConvertResult");
+            resDiv.innerHTML = `
+                <span class="text-[10px] text-slate-400 uppercase font-semibold">Pakistani Standard Time Result</span>
+                <p class="text-lg font-extrabold text-slate-900 dark:text-white mt-1">
+                    ${String(formattedHr).padStart(2, '0')}:${String(min).padStart(2, '0')} ${ampm}
+                    ${isNextDay ? '<span class="text-[10px] font-bold text-amber-500 block mt-0.5">*Plays Next Calendar Day in Pakistan</span>' : ''}
+                </p>
+            `;
+        }
+
+        function renderDashboardLive() {
+            const container = document.getElementById("dashboardLiveMatches");
+            if (!container) return;
+
+            if (virtualTimeMode === "realtime") {
+                container.innerHTML = `
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-2xl shadow-sm hover:border-amber-400/30 transition cursor-pointer" onclick="switchSection('liveCenter')">
+                        <div class="flex items-center justify-between text-[10px] mb-3 text-slate-400">
+                            <span class="font-bold uppercase tracking-wider text-amber-500 flex items-center gap-1">
+                                ⏱️ Broadcast Standby
+                            </span>
+                            <span>Group B • Levi's Stadium</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs font-bold mb-4">
+                            <div class="flex items-center gap-2">
+                                <span>🇶🇦</span> <span>Qatar</span>
+                            </div>
+                            <span class="text-xs text-slate-400">Tonight</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs font-bold">
+                            <div class="flex items-center gap-2">
+                                <span>🇨🇭</span> <span>Switzerland</span>
+                            </div>
+                            <span class="text-xs text-slate-400">12:00 AM PKT</span>
+                        </div>
+                        <div class="border-t border-slate-100 dark:border-slate-855 pt-2 mt-3 text-[10px] text-slate-400 flex justify-between items-center">
+                            <span>Starts In: <strong class="text-amber-500" id="dashStandbyCountdown">--h --m --s</strong></span>
+                            <span class="text-amber-500 font-bold hover:underline text-[10px]">Open Live Center ➔</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-2xl shadow-sm text-slate-400">
+                        <div class="flex items-center justify-between text-[10px] mb-3">
+                            <span class="font-bold text-slate-400 uppercase tracking-wider">Completed</span>
+                            <span>Group D • SoFi Stadium</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs font-semibold mb-4 text-slate-500">
+                            <div class="flex items-center gap-2">
+                                <span>🇺🇸</span> <span>USA</span>
+                            </div>
+                            <span class="text-sm font-bold text-slate-900 dark:text-white">4</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs font-semibold text-slate-500">
+                            <div class="flex items-center gap-2">
+                                <span>🇵🇾</span> <span>Paraguay</span>
+                            </div>
+                            <span class="text-sm font-bold text-slate-900 dark:text-white">1</span>
+                        </div>
+                        <div class="border-t border-slate-100 dark:border-slate-855 pt-2 mt-3 text-[10px] flex justify-between items-center">
+                            <span>Full Time Scoreline</span>
+                            <span class="text-[9px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-500">June 12 Match</span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-2xl shadow-sm hover:border-amber-400/30 transition cursor-pointer" onclick="switchSection('liveCenter')">
+                        <div class="flex items-center justify-between text-[10px] mb-3 text-slate-400">
+                            <span class="font-bold uppercase tracking-wider text-red-500 flex items-center gap-1">
+                                <span class="h-2 w-2 rounded-full bg-red-500 animate-ping"></span> Live Showcase
+                            </span>
+                            <span>Group B • Levi's Stadium</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs font-bold mb-4">
+                            <div class="flex items-center gap-2">
+                                <span>🇶🇦</span> <span>Qatar</span>
+                            </div>
+                            <span class="text-sm font-extrabold text-amber-500" id="dashScore1">${team1Score}</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs font-bold">
+                            <div class="flex items-center gap-2">
+                                <span>🇨🇭</span> <span>Switzerland</span>
+                            </div>
+                            <span class="text-sm font-extrabold text-amber-500" id="dashScore2">${team2Score}</span>
+                        </div>
+                        <div class="border-t border-slate-100 dark:border-slate-855 pt-2 mt-3 text-[10px] text-slate-400 flex justify-between items-center">
+                            <span>Current Game Time: <strong class="text-emerald-400" id="dashMatchTime">${liveMatchMin}'</strong></span>
+                            <span class="text-amber-500 font-bold hover:underline text-[10px]">Stats Panel ➔</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-2xl shadow-sm text-slate-400">
+                        <div class="flex items-center justify-between text-[10px] mb-3">
+                            <span class="font-bold text-slate-400 uppercase tracking-wider">Completed</span>
+                            <span>Group D • SoFi Stadium</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs font-semibold mb-4 text-slate-500">
+                            <div class="flex items-center gap-2">
+                                <span>🇺🇸</span> <span>USA</span>
+                            </div>
+                            <span class="text-sm font-bold text-slate-900 dark:text-white">4</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs font-semibold text-slate-500">
+                            <div class="flex items-center gap-2">
+                                <span>🇵🇾</span> <span>Paraguay</span>
+                            </div>
+                            <span class="text-sm font-bold text-slate-900 dark:text-white">1</span>
+                        </div>
+                        <div class="border-t border-slate-100 dark:border-slate-855 pt-2 mt-3 text-[10px] flex justify-between items-center">
+                            <span>Full Time Scoreline</span>
+                            <span class="text-[9px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-500">June 12 Match</span>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function renderDashboardUpcoming() {
+            const container = document.getElementById("dashboardUpcomingMatches");
+            if (!container) return;
+
+            const list = matchData.filter(m => m.status === 'Upcoming').slice(0, 2);
+            container.innerHTML = "";
+
+            list.forEach(match => {
+                container.innerHTML += `
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-xl shadow-sm text-xs">
+                        <div class="flex justify-between items-center text-[10px] text-slate-400 mb-2">
+                            <span class="font-bold uppercase tracking-wider text-amber-500">${match.group}</span>
+                            <span>${match.matchNo}</span>
+                        </div>
+                        <div class="flex justify-between font-bold text-slate-900 dark:text-white mb-2">
+                            <span class="flex items-center gap-1.5">${match.team1Flag} ${match.team1}</span>
+                            <span>vs</span>
+                            <span class="flex items-center gap-1.5">${match.team2Flag} ${match.team2}</span>
+                        </div>
+                        <div class="bg-slate-50 dark:bg-slate-950 p-2 rounded-lg border border-slate-200/50 dark:border-slate-800 flex justify-between text-[10px]">
+                            <span class="text-slate-500">PKT Broadcast:</span>
+                            <span class="font-bold text-slate-700 dark:text-slate-300">${match.pktDate} • ${match.pktTime}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderDashboardGroupStandings() {
+            const container = document.getElementById("dashGroupStandings");
+            if (!container) return;
+
+            container.innerHTML = "";
+            const sampleA = groupsData['A'];
+            sampleA.forEach((team, idx) => {
+                container.innerHTML += `
+                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/20 text-xs">
+                        <td class="py-2.5 font-bold">${idx + 1}</td>
+                        <td class="py-2.5 font-semibold flex items-center gap-1.5"><span>${team.flag}</span> <span>${team.name}</span></td>
+                        <td class="py-2.5 text-center font-bold">${team.pts}</td>
+                        <td class="py-2.5 text-center font-mono text-slate-400">${team.gd > 0 ? '+' + team.gd : team.gd}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        let currentFilterStage = 'all';
+
+        function renderScheduleTable(list) {
+            const container = document.getElementById("scheduleTableBody");
+            if (!container) return;
+
+            container.innerHTML = "";
+
+            let displayList = list;
+            if (currentFilterStage !== 'all') {
+                if (currentFilterStage === 'knockout') {
+                    displayList = displayList.filter(m => m.stage !== 'group');
+                } else {
+                    displayList = displayList.filter(m => m.stage === currentFilterStage);
+                }
+            }
+
+            if (displayList.length === 0) {
+                container.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-400">No scheduled matches matching filter criteria.</td></tr>`;
+                return;
+            }
+
+            displayList.forEach(match => {
+                let statusBadge = "";
+                if (match.status.includes("Completed")) {
+                    statusBadge = `<span class="bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] px-2.5 py-1 rounded-full font-bold">FT</span>`;
+                } else if (match.status === "Live") {
+                    statusBadge = `<span class="bg-red-500 text-white text-[10px] px-2.5 py-1 rounded-full font-bold animate-pulse">LIVE</span>`;
+                } else {
+                    statusBadge = `<span class="bg-amber-400/20 text-amber-500 text-[10px] px-2.5 py-1 rounded-full font-bold">Upcoming</span>`;
+                }
+
+                container.innerHTML += `
+                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-855 transition">
+                        <td class="p-4 font-mono">
+                            <p class="font-bold text-slate-900 dark:text-white">${match.matchNo}</p>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-wider">${match.group}</p>
+                        </td>
+                        <td class="p-4">
+                            <div class="space-y-1.5 font-bold">
+                                <div class="flex items-center gap-2 text-slate-900 dark:text-white"><span>${match.team1Flag}</span> <span>${match.team1}</span></div>
+                                <div class="flex items-center gap-2 text-slate-900 dark:text-white"><span>${match.team2Flag}</span> <span>${match.team2}</span></div>
+                            </div>
+                        </td>
+                        <td class="p-4">
+                            <p class="font-bold text-slate-700 dark:text-slate-300">${match.localTime}</p>
+                            <p class="text-[10px] text-slate-400">${match.localDate}</p>
+                        </td>
+                        <td class="p-4">
+                            <p class="font-bold text-amber-500">${match.pktTime}</p>
+                            <p class="text-[10px] text-slate-400 font-semibold">${match.pktDate}</p>
+                        </td>
+                        <td class="p-4">
+                            <p class="font-semibold text-slate-700 dark:text-slate-300">${match.stadium}</p>
+                            <p class="text-[10px] text-slate-400">${match.city}</p>
+                        </td>
+                        <td class="p-4 text-center">
+                            ${statusBadge}
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function filterSchedule() {
+            const query = document.getElementById("scheduleSearch").value.toLowerCase();
+            const filtered = matchData.filter(m => {
+                return m.team1.toLowerCase().includes(query) || 
+                       m.team2.toLowerCase().includes(query) || 
+                       m.stadium.toLowerCase().includes(query) || 
+                       m.city.toLowerCase().includes(query);
+            });
+            renderScheduleTable(filtered);
+        }
+
+        function filterScheduleByStage(stage) {
+            currentFilterStage = stage;
+            
+            document.querySelectorAll(".sched-filter-btn").forEach(btn => {
+                btn.className = "sched-filter-btn px-3 py-1.5 text-xs font-bold rounded-xl transition bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700";
+            });
+            document.getElementById(`btn-sched-${stage}`).className = "sched-filter-btn px-3 py-1.5 text-xs font-bold rounded-xl transition bg-amber-400 text-slate-950 shadow";
+
+            renderScheduleTable(matchData);
+        }
+
+        function renderGroupStandingsView() {
+            const container = document.getElementById("groupsStandingsContainer");
+            if (!container) return;
+
+            container.innerHTML = "";
+            Object.keys(groupsData).forEach(groupLetter => {
+                const teams = groupsData[groupLetter];
+                let teamHtml = "";
+                
+                teams.forEach((team, idx) => {
+                    let indicator = "";
+                    if (team.state === "Qualified") {
+                        indicator = `<span class="h-2 w-2 rounded-full bg-emerald-500 block" title="Qualified"></span>`;
+                    } else if (team.state === "Eliminated") {
+                        indicator = `<span class="h-2 w-2 rounded-full bg-red-500 block" title="Eliminated"></span>`;
+                    } else {
+                        indicator = `<span class="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-700 block" title="In Play"></span>`;
+                    }
+
+                    teamHtml += `
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 text-xs">
+                            <td class="py-3 font-bold flex items-center gap-1.5">${idx + 1} ${indicator}</td>
+                            <td class="py-3 font-semibold flex items-center gap-2"><span>${team.flag}</span> <span>${team.name}</span></td>
+                            <td class="py-3 text-center">${team.p}</td>
+                            <td class="py-3 text-center">${team.w}</td>
+                            <td class="py-3 text-center">${team.d}</td>
+                            <td class="py-3 text-center">${team.l}</td>
+                            <td class="py-3 text-center font-mono text-slate-400">${team.gd > 0 ? '+' + team.gd : team.gd}</td>
+                            <td class="py-3 text-center font-bold text-slate-900 dark:text-white">${team.pts}</td>
+                        </tr>
+                    `;
+                });
+
+                container.innerHTML += `
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm">
+                        <h3 class="text-sm font-bold font-heading text-slate-950 dark:text-white border-b border-slate-100 dark:border-slate-855 pb-2.5 mb-3">Group ${groupLetter}</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead>
+                                    <tr class="text-[10px] text-slate-400 uppercase font-bold tracking-wider border-b border-slate-100 dark:border-slate-800">
+                                        <th class="py-2">Pos</th>
+                                        <th class="py-2">Team</th>
+                                        <th class="py-2 text-center">P</th>
+                                        <th class="py-2 text-center">W</th>
+                                        <th class="py-2 text-center">D</th>
+                                        <th class="py-2 text-center">L</th>
+                                        <th class="py-2 text-center">GD</th>
+                                        <th class="py-2 text-center">Pts</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${teamHtml}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function runH2HComparison() {
+            const team1 = document.getElementById("h2hTeam1").value;
+            const team2 = document.getElementById("h2hTeam2").value;
+            const container = document.getElementById("h2hResultsGrid");
+            if (!container) return;
+
+            const t1 = teamStats[team1] || { 
+                coach: "National Coach Profile", 
+                captain: "Squad Leader", 
+                squad: ["Seeded Player A", "Seeded Player B", "Seeded Player C"], 
+                rank: countryRanks[team1] || 50 
+            };
+            const t2 = teamStats[team2] || { 
+                coach: "National Coach Profile", 
+                captain: "Squad Leader", 
+                squad: ["Seeded Player A", "Seeded Player B", "Seeded Player C"], 
+                rank: countryRanks[team2] || 50 
+            };
+
+            container.innerHTML = `
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-4xl">🛡️</span>
+                        <div>
+                            <h3 class="font-bold font-heading text-lg text-slate-900 dark:text-white">${team1}</h3>
+                            <span class="text-xs text-slate-400">FIFA Rank: #${t1.rank}</span>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-xs border-t border-slate-100 dark:border-slate-800 pt-3">
+                        <p><strong>Manager:</strong> ${t1.coach}</p>
+                        <p><strong>Captain:</strong> ${t1.captain}</p>
+                        <div>
+                            <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider block mb-1">Key Squad members</span>
+                            <div class="flex flex-wrap gap-1.5">
+                                ${t1.squad.map(s => `<span class="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-[10px] text-slate-600 dark:text-slate-300">${s}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm space-y-4 flex flex-col justify-center">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 text-center">Statistical Comparison</h3>
+                    <div class="space-y-4 text-xs">
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between font-semibold">
+                                <span>Attack Rating</span>
+                                <span class="font-bold text-amber-500">88</span>
+                                <span class="font-bold text-blue-400">85</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden flex">
+                                <div class="bg-amber-400 h-full" style="width: 55%"></div>
+                                <div class="bg-blue-400 h-full flex-grow"></div>
+                            </div>
+                        </div>
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between font-semibold">
+                                <span>Midfield Control</span>
+                                <span class="font-bold text-amber-500">84</span>
+                                <span class="font-bold text-blue-400">92</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden flex">
+                                <div class="bg-amber-400 h-full" style="width: 45%"></div>
+                                <div class="bg-blue-400 h-full flex-grow"></div>
+                            </div>
+                        </div>
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between font-semibold">
+                                <span>Defense Index</span>
+                                <span class="font-bold text-amber-500">86</span>
+                                <span class="font-bold text-blue-400">89</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden flex">
+                                <div class="bg-amber-400 h-full" style="width: 48%"></div>
+                                <div class="bg-blue-400 h-full flex-grow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-4xl">🛡️</span>
+                        <div>
+                            <h3 class="font-bold font-heading text-lg text-slate-900 dark:text-white">${team2}</h3>
+                            <span class="text-xs text-slate-400">FIFA Rank: #${t2.rank}</span>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-xs border-t border-slate-100 dark:border-slate-800 pt-3">
+                        <p><strong>Manager:</strong> ${t2.coach}</p>
+                        <p><strong>Captain:</strong> ${t2.captain}</p>
+                        <div>
+                            <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider block mb-1">Key Squad members</span>
+                            <div class="flex flex-wrap gap-1.5">
+                                ${t2.squad.map(s => `<span class="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-[10px] text-slate-600 dark:text-slate-300">${s}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderStadiums() {
+            const container = document.getElementById("stadiumsGrid");
+            if (!container) return;
+
+            container.innerHTML = "";
+            stadiumData.forEach(stadium => {
+                container.innerHTML += `
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-3xl shadow-sm space-y-3 hover:border-amber-400/30 transition">
+                        <div class="h-32 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-4xl">🏟️</div>
+                        <h4 class="font-bold text-sm text-slate-900 dark:text-white">${stadium.name}</h4>
+                        <p class="text-xs text-slate-400">${stadium.city}</p>
+                        <div class="flex justify-between items-center text-[11px] pt-2 border-t border-slate-100 dark:border-slate-855">
+                            <span>Capacity: <strong>${stadium.capacity}</strong></span>
+                            <span class="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-[10px] text-slate-500 font-bold">${stadium.matches}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderStatsList() {
+            const scorersCont = document.getElementById("statsScorers");
+            const assistsCont = document.getElementById("statsAssists");
+            const redCardsCont = document.getElementById("statsRedCards");
+            const cleanSheetsCont = document.getElementById("statsCleanSheets");
+
+            if (scorersCont) {
+                scorersCont.innerHTML = "";
+                topScorers.slice(0, 5).forEach((p, i) => {
+                    scorersCont.innerHTML += `
+                        <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200/50 dark:border-slate-800">
+                            <div class="flex items-center gap-3">
+                                <span class="font-extrabold text-xs text-amber-500">#${i + 1}</span>
+                                <div>
+                                    <p class="font-bold text-xs text-slate-900 dark:text-white">${p.name}</p>
+                                    <span class="text-[10px] text-slate-400">${p.team}</span>
+                                </div>
+                            </div>
+                            <span class="text-xs font-black font-heading bg-amber-400/10 text-amber-500 px-3 py-1 rounded-lg">${p.goals} Goals</span>
+                        </div>
+                    `;
+                });
+            }
+
+            if (assistsCont) {
+                assistsCont.innerHTML = "";
+                topAssists.slice(0, 5).forEach((p, i) => {
+                    assistsCont.innerHTML += `
+                        <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200/50 dark:border-slate-800">
+                            <div class="flex items-center gap-3">
+                                <span class="font-extrabold text-xs text-blue-500">#${i + 1}</span>
+                                <div>
+                                    <p class="font-bold text-xs text-slate-900 dark:text-white">${p.name}</p>
+                                    <span class="text-[10px] text-slate-400">${p.team}</span>
+                                </div>
+                            </div>
+                            <span class="text-xs font-black font-heading bg-blue-500/10 text-blue-400 px-3 py-1 rounded-lg">${p.assists} Assists</span>
+                        </div>
+                    `;
+                });
+            }
+
+            if (redCardsCont) {
+                redCardsCont.innerHTML = "";
+                disciplineRedCards.forEach((p, i) => {
+                    redCardsCont.innerHTML += `
+                        <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200/50 dark:border-slate-800">
+                            <div class="flex items-center gap-3">
+                                <span class="font-extrabold text-xs text-red-500">#${i + 1}</span>
+                                <div>
+                                    <p class="font-bold text-xs text-slate-900 dark:text-white">${p.name}</p>
+                                    <span class="text-[10px] text-slate-400">${p.team}</span>
+                                </div>
+                            </div>
+                            <span class="text-xs font-black font-heading bg-red-500/10 text-red-500 px-3 py-1 rounded-lg">${p.cards} Red Card</span>
+                        </div>
+                    `;
+                });
+            }
+
+            if (cleanSheetsCont) {
+                cleanSheetsCont.innerHTML = "";
+                disciplineCleanSheets.forEach((p, i) => {
+                    cleanSheetsCont.innerHTML += `
+                        <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200/50 dark:border-slate-800">
+                            <div class="flex items-center gap-3">
+                                <span class="font-extrabold text-xs text-emerald-500">#${i + 1}</span>
+                                <div>
+                                    <p class="font-bold text-xs text-slate-900 dark:text-white">${p.name}</p>
+                                    <span class="text-[10px] text-slate-400">${p.team}</span>
+                                </div>
+                            </div>
+                            <span class="text-xs font-black font-heading bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-lg">${p.cleanSheets} Clean Sheet</span>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        function renderAnalyticsChart() {
+            const container = document.getElementById("chartGoals");
+            if (!container) return;
+
+            container.innerHTML = `
+                <div class="w-10 bg-amber-400 rounded-t-lg transition hover:bg-amber-300" style="height: 100%" title="USA: 4 Goals"></div>
+                <div class="w-10 bg-indigo-500 rounded-t-lg transition hover:bg-indigo-400" style="height: 50%" title="Mexico: 2 Goals"></div>
+                <div class="w-10 bg-emerald-500 rounded-t-lg transition hover:bg-emerald-400" style="height: 50%" title="South Korea: 2 Goals"></div>
+                <div class="w-10 bg-red-500 rounded-t-lg transition hover:bg-red-400" style="height: 25%" title="Canada: 1 Goal"></div>
+                <div class="w-10 bg-blue-500 rounded-t-lg transition hover:bg-blue-400" style="height: 25%" title="Bosnia: 1 Goal"></div>
+                <div class="w-10 bg-orange-500 rounded-t-lg transition hover:bg-orange-400" style="height: 25%" title="Czechia: 1 Goal"></div>
+                <div class="w-10 bg-purple-500 rounded-t-lg transition hover:bg-purple-400" style="height: 25%" title="Paraguay: 1 Goal"></div>
+            `;
+        }
+
+        function handleGlobalSearch(event) {
+            const input = document.getElementById("globalSearch");
+            const dropdown = document.getElementById("searchSuggestions");
+            const q = input.value.toLowerCase().trim();
+
+            if (!q) {
+                dropdown.classList.add("hidden");
+                return;
+            }
+
+            let suggestions = [];
+
+            // Filter Teams (Cover all 48 teams)
+            const matchedTeams = Object.keys(teamStatsData).filter(team => team.toLowerCase().includes(q));
+            matchedTeams.forEach(team => {
+                const data = teamStatsData[team];
+                suggestions.push(`
+                    <div onclick="showTeamStatsModal('${team}')" class="p-3 hover:bg-amber-400/10 dark:hover:bg-slate-800 cursor-pointer flex items-center justify-between transition duration-150">
+                        <div class="flex items-center gap-2">
+                            <span class="text-lg">${data.flag}</span>
+                            <span class="font-bold text-slate-800 dark:text-slate-100 text-xs">${team}</span>
+                        </div>
+                        <span class="text-[9px] uppercase tracking-wider text-amber-500 bg-amber-400/10 px-2 py-0.5 rounded-full font-bold">🛡️ Team</span>
+                    </div>
+                `);
+            });
+
+            // Filter Players (Cover all generated roster players)
+            const matchedPlayers = Object.keys(playerProfiles).filter(player => player.toLowerCase().includes(q));
+            matchedPlayers.slice(0, 10).forEach(player => {
+                const data = playerProfiles[player];
+                const teamData = teamStatsData[data.team] || { flag: "🏳️" };
+                suggestions.push(`
+                    <div onclick="showPlayerStatsModal('${player}')" class="p-3 hover:bg-blue-500/10 dark:hover:bg-slate-800 cursor-pointer flex items-center justify-between transition duration-150">
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm">${teamData.flag}</span>
+                            <span class="font-bold text-slate-800 dark:text-slate-100 text-xs">${player}</span>
+                            <span class="text-[10px] text-slate-400">(${data.position})</span>
+                        </div>
+                        <span class="text-[9px] uppercase tracking-wider text-blue-500 bg-blue-500/10 px-2 py-0.5 rounded-full font-bold">🏃 Player</span>
+                    </div>
+                `);
+            });
+
+            // Filter Match Fixtures
+            const matches = matchData.filter(m => m.team1.toLowerCase().includes(q) || m.team2.toLowerCase().includes(q));
+            matches.slice(0, 3).forEach(m => {
+                suggestions.push(`
+                    <div onclick="selectGlobalSearch('schedule')" class="p-3 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer flex items-center justify-between transition duration-150">
+                        <div class="flex items-center gap-2 text-xs">
+                            <span>📅</span>
+                            <span class="font-semibold text-slate-700 dark:text-slate-300">${m.team1} vs ${m.team2}</span>
+                        </div>
+                        <span class="text-[9px] text-slate-400 font-medium">Schedule</span>
+                    </div>
+                `);
+            });
+
+            if (suggestions.length === 0) {
+                dropdown.innerHTML = `<div class="p-4 text-slate-400 text-center text-xs">No matches found. Try searching "Argentina", "Yamal", or "Pulisic"</div>`;
+            } else {
+                dropdown.innerHTML = suggestions.join('');
+            }
+            dropdown.classList.remove("hidden");
+        }
+
+        function showTeamStatsModal(teamName) {
+            document.getElementById("searchSuggestions").classList.add("hidden");
+            document.getElementById("globalSearch").value = "";
+
+            const data = teamStatsData[teamName];
+            if (!data) return;
+
+            const upcomingMatch = matchData.find(m => m.status === 'Upcoming' && (m.team1 === teamName || m.team2 === teamName)) || {
+                opponent: "TBD", opponentFlag: "🏳️", pktDate: "To be decided", pktTime: "--:--", stadium: "TBD", city: "Host City"
+            };
+
+            let opponent = upcomingMatch.team1 === teamName ? upcomingMatch.team2 : upcomingMatch.team1;
+            let opponentFlag = upcomingMatch.team1 === teamName ? upcomingMatch.team2Flag : upcomingMatch.team1Flag;
+            if (!opponent) {
+                opponent = "TBD";
+                opponentFlag = "🏳️";
+            }
+
+            const header = document.getElementById("statsModalHeader");
+            header.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <span class="text-4xl">${data.flag}</span>
+                    <div>
+                        <h3 class="font-black font-heading text-lg text-slate-900 dark:text-white">${teamName} Stats</h3>
+                        <p class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">${data.group} • FIFA Rank #${data.rank}</p>
+                    </div>
+                </div>
+                <button onclick="closeStatsModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 rounded-lg text-sm font-bold">✕</button>
+            `;
+
+            const body = document.getElementById("statsModalBody");
+            body.innerHTML = `
+                <div class="space-y-6">
+                    <div class="grid grid-cols-4 gap-3 text-center">
+                        <div class="bg-slate-50 dark:bg-slate-800/40 p-3 rounded-2xl border border-slate-100 dark:border-slate-800">
+                            <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Played</span>
+                            <p class="text-lg font-black text-slate-900 dark:text-white mt-1">${data.p}</p>
+                        </div>
+                        <div class="bg-emerald-50 dark:bg-emerald-500/10 p-3 rounded-2xl border border-emerald-100 dark:border-emerald-950/20">
+                            <span class="text-[9px] uppercase font-bold text-emerald-500 dark:text-emerald-400 tracking-wider">Won</span>
+                            <p class="text-lg font-black text-emerald-600 dark:text-emerald-400 mt-1">${data.w}</p>
+                        </div>
+                        <div class="bg-slate-50 dark:bg-slate-800/40 p-3 rounded-2xl border border-slate-100 dark:border-slate-800">
+                            <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Drawn</span>
+                            <p class="text-lg font-black text-slate-900 dark:text-white mt-1">${data.d}</p>
+                        </div>
+                        <div class="bg-red-50 dark:bg-red-500/10 p-3 rounded-2xl border border-red-100 dark:border-red-950/20">
+                            <span class="text-[9px] uppercase font-bold text-red-500 dark:text-red-400 tracking-wider">Lost</span>
+                            <p class="text-lg font-black text-red-600 dark:text-red-400 mt-1">${data.l}</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                            <div>
+                                <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Group Position</span>
+                                <p class="text-xl font-black text-amber-500 mt-1">${data.position}</p>
+                            </div>
+                            <span class="text-2xl">🏆</span>
+                        </div>
+                        <div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                            <div>
+                                <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Group Points</span>
+                                <p class="text-xl font-black text-indigo-500 dark:text-indigo-400 mt-1">${data.pts} Pts</p>
+                            </div>
+                            <span class="text-2xl">🔥</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-3">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Goals Scored vs Conceded</h4>
+                        <div class="flex justify-between text-xs font-semibold">
+                            <span class="text-emerald-500">⚽ Goals For: ${data.gf}</span>
+                            <span class="text-red-400">🥅 Conceded: ${data.ga}</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden flex">
+                            <div class="bg-emerald-400 h-full" style="width: ${data.gf + data.ga > 0 ? (data.gf / (data.gf + data.ga)) * 100 : 50}%"></div>
+                            <div class="bg-red-400 h-full flex-grow"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-slate-900 to-indigo-950 text-white p-4 rounded-2xl border border-indigo-950 space-y-3">
+                        <span class="text-[9px] uppercase tracking-wider text-amber-400 font-extrabold block">⚔️ Next Scheduled Match</span>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-1.5 font-bold text-xs">
+                                <span>${data.flag}</span>
+                                <span>${teamName}</span>
+                            </div>
+                            <span class="text-[10px] bg-slate-800 border border-slate-700 px-2 py-0.5 rounded font-mono font-bold text-amber-400">VS</span>
+                            <div class="flex items-center gap-1.5 font-bold text-xs">
+                                <span>${opponentFlag}</span>
+                                <span>${opponent}</span>
+                            </div>
+                        </div>
+                        <div class="border-t border-slate-800/80 pt-2.5 flex justify-between items-center text-[10px] text-slate-300">
+                            <span>🕒 ${upcomingMatch.pktDate || "TBD"} @ ${upcomingMatch.pktTime || "--:--"} PKT</span>
+                            <span class="text-slate-400">${upcomingMatch.stadium || "TBD Stadium"} (${upcomingMatch.city || "Host"})</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const modal = document.getElementById("statsDetailModal");
+            modal.classList.remove("hidden");
+            setTimeout(() => {
+                document.getElementById("statsModalCard").classList.remove("scale-95");
+            }, 50);
+        }
+
+        function showPlayerStatsModal(playerName) {
+            document.getElementById("searchSuggestions").classList.add("hidden");
+            document.getElementById("globalSearch").value = "";
+
+            const data = playerProfiles[playerName];
+            if (!data) return;
+
+            const teamData = teamStatsData[data.team] || { flag: "🏳️" };
+
+            const header = document.getElementById("statsModalHeader");
+            header.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <span class="text-4xl">${teamData.flag}</span>
+                    <div>
+                        <h3 class="font-black font-heading text-lg text-slate-900 dark:text-white">${playerName}</h3>
+                        <p class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">${data.position} • Jersey #${data.number}</p>
+                    </div>
+                </div>
+                <button onclick="closeStatsModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 rounded-lg text-sm font-bold">✕</button>
+            `;
+
+            const body = document.getElementById("statsModalBody");
+            body.innerHTML = `
+                <div class="space-y-6">
+                    <div class="grid grid-cols-3 gap-3 text-center">
+                        <div class="bg-slate-50 dark:bg-slate-800/40 p-3 rounded-2xl border border-slate-100 dark:border-slate-800">
+                            <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Matches</span>
+                            <p class="text-lg font-black text-slate-900 dark:text-white mt-1">${data.matches}</p>
+                        </div>
+                        <div class="bg-amber-50 dark:bg-amber-500/10 p-3 rounded-2xl border border-amber-100 dark:border-amber-950/20">
+                            <span class="text-[9px] uppercase font-bold text-amber-500 dark:text-amber-400 tracking-wider">Goals</span>
+                            <p class="text-lg font-black text-amber-500 mt-1">${data.goals}</p>
+                        </div>
+                        <div class="bg-blue-50 dark:bg-blue-500/10 p-3 rounded-2xl border border-blue-100 dark:border-blue-950/20">
+                            <span class="text-[9px] uppercase font-bold text-blue-500 dark:text-blue-400 tracking-wider">Assists</span>
+                            <p class="text-lg font-black text-blue-500 mt-1">${data.assists}</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 text-xs space-y-2">
+                        <p class="flex justify-between">
+                            <span class="text-slate-400">Current Club Entity:</span> 
+                            <span class="font-bold text-slate-850 dark:text-white">${data.club}</span>
+                        </p>
+                        <p class="flex justify-between">
+                            <span class="text-slate-400">Preferred Striking Foot:</span> 
+                            <span class="font-bold text-slate-850 dark:text-white">${data.preferredFoot}</span>
+                        </p>
+                        <p class="flex justify-between">
+                            <span class="text-slate-400">Age:</span> 
+                            <span class="font-bold text-slate-850 dark:text-white">${data.age} Years</span>
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-3">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Performance Attribute Stats Rating</h4>
+                        
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-slate-500">🏃 Speed / Pace</span>
+                                <span class="font-bold text-slate-900 dark:text-white">${data.pace}</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                                <div class="bg-amber-400 h-full" style="width: ${data.pace}%"></div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-slate-500">🎯 Shooting Accuracy</span>
+                                <span class="font-bold text-slate-900 dark:text-white">${data.shot}</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                                <div class="bg-amber-400 h-full" style="width: ${data.shot}%"></div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-slate-500">📐 Midfield Passing Link</span>
+                                <span class="font-bold text-slate-900 dark:text-white">${data.pass}</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                                <div class="bg-blue-400 h-full" style="width: ${data.pass}%"></div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-slate-500">✨ Dribbling Skill</span>
+                                <span class="font-bold text-slate-900 dark:text-white">${data.dribble}</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                                <div class="bg-blue-400 h-full" style="width: ${data.dribble}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const modal = document.getElementById("statsDetailModal");
+            modal.classList.remove("hidden");
+            setTimeout(() => {
+                document.getElementById("statsModalCard").classList.remove("scale-95");
+            }, 50);
+        }
+
+        function closeStatsModal() {
+            document.getElementById("statsModalCard").classList.add("scale-95");
+            setTimeout(() => {
+                document.getElementById("statsDetailModal").classList.add("hidden");
+            }, 150);
+        }
+
+        function selectGlobalSearch(sectionId) {
+            document.getElementById("globalSearch").value = "";
+            document.getElementById("searchSuggestions").classList.add("hidden");
+            switchSection(sectionId);
+        }
+
+        function votePredictor(type) {
+            const res = document.getElementById("predictorResults");
+            res.classList.remove("hidden");
+        }
+
+        function toggleNotifications() {
+            const drop = document.getElementById("notifDropdown");
+            drop.classList.toggle("hidden");
+        }
+
+        function clearNotifications() {
+            document.getElementById("notifBadge").innerText = "0";
+            document.getElementById("notifList").innerHTML = `<p class="p-4 text-center text-slate-400 text-xs">No active notifications</p>`;
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById("themeIcon");
+
+            if (html.classList.contains("dark")) {
+                html.classList.remove("dark");
+                icon.innerText = "🌙";
+            } else {
+                html.classList.add("dark");
+                icon.innerText = "☀️";
+            }
+        }
+
+        // Close search dropdown on clicking outside
+        document.addEventListener("click", function(e) {
+            const dropdown = document.getElementById("searchSuggestions");
+            const searchInput = document.getElementById("globalSearch");
+            if (e.target !== dropdown && e.target !== searchInput) {
+                dropdown.classList.add("hidden");
+            }
+        });
+    </script>
+</body>
+</html>
